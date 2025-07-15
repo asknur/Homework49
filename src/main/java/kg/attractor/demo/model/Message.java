@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 
-public class Messages {
+public class Message {
     private int id;
     private int responded_applicants;
     private String content;
