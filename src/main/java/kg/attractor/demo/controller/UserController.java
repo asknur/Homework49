@@ -17,7 +17,8 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user) {
-        return ResponseEntity.ok(userService.save(user));
+        user.setAccount_type(user.getAccount_type());
+        return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
     }
 
     @GetMapping("/employer/{id}")
