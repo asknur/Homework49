@@ -2,11 +2,14 @@ package kg.attractor.demo.model;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Data
-@Builder
+@Getter
+@Setter
 public class Resume {
     private int id;
     private int applicant_id;
