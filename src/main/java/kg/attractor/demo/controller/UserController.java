@@ -1,7 +1,7 @@
 package kg.attractor.demo.controller;
 
 import kg.attractor.demo.model.User;
-import kg.attractor.demo.service.UserService;
+import kg.attractor.demo.service.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user) {
