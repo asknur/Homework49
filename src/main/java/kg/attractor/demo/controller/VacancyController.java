@@ -1,7 +1,7 @@
 package kg.attractor.demo.controller;
 
 import kg.attractor.demo.model.Vacancy;
-import kg.attractor.demo.service.VacancyService;
+import kg.attractor.demo.service.impl.VacancyServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 
 public class VacancyController {
-    private final VacancyService vacancyService;
+    private final VacancyServiceImpl vacancyService;
 
     @PostMapping
     public ResponseEntity<Vacancy> createVacancy(@RequestBody Vacancy vacancy) {
