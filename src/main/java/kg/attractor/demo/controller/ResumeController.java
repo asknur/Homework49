@@ -1,7 +1,7 @@
 package kg.attractor.demo.controller;
 
 import kg.attractor.demo.model.Resume;
-import kg.attractor.demo.service.ResumeService;
+import kg.attractor.demo.service.impl.ResumeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 
 public class ResumeController {
-    private final ResumeService resumeService;
+    private final ResumeServiceImpl resumeService;
 
     @PostMapping
     public ResponseEntity<Resume> createResume(@RequestBody Resume resume) {
