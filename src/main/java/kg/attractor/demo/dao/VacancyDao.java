@@ -19,6 +19,12 @@ public class VacancyDao {
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final KeyHolder keyHolder = new GeneratedKeyHolder();
 
+
+    public List<Vacancy> getById(int id) {
+        String sql = "select * from vacancies where id = ?";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Vacancy.class), id);
+    }
+
     public List<Vacancy> getRespondedVac(int userId) {
         String sql = """
         select * from responded_applicants ra
@@ -48,5 +54,6 @@ public class VacancyDao {
         """;
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class), vacancyId);
     }
+
 
 }

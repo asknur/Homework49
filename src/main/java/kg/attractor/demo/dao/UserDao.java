@@ -1,8 +1,10 @@
 package kg.attractor.demo.dao;
 
 import kg.attractor.demo.dao.mappers.UserMapper;
+import kg.attractor.demo.model.Resume;
 import kg.attractor.demo.model.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -24,6 +26,10 @@ public class UserDao {
     private final KeyHolder keyHolder = new GeneratedKeyHolder();
 
 
+    public List<User> getById(int id) {
+        String sql = "select * from users where id = ?";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class), id);
+    }
 
     public List<User> getByName(String name) {
         String sql = "select * from users\n" +
@@ -62,17 +68,6 @@ public class UserDao {
         Integer count = jdbcTemplate.queryForObject(sql, Integer.class, email);
         return count > 0;
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
