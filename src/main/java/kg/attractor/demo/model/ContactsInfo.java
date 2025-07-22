@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class Contacts_info {
+public class ContactsInfo {
     private int id;
     private int type_id;
     private int resume_id;

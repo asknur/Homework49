@@ -2,14 +2,27 @@
   application:
    name: JobSearch
   datasource:
-    url: jdbc:h2:./db/test;AUTO_SERVER=TRUE
+    url: jdbc:h2:./db/job_search;AUTO_SERVER=TRUE
     username: Askar
     password: qwerty12345
     driver-class-name: org.h2.Driver
-  sql:
-    init:
-      mode: always
+#  sql:
+#    init:
+#      mode: always
+
+
+  liquibase:
+    change-log: classpath:/db/changelog/master.yaml
 
 
  server:
    port: 8080
+
+
+ logging:
+   level:
+     root: error
+   pattern:
+     file: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
+   file:
+     path: logs

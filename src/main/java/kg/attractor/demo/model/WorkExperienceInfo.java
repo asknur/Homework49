@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class Work_experience_info {
+public class WorkExperienceInfo {
     private int id;
     private int resume_id;
     private int years;
