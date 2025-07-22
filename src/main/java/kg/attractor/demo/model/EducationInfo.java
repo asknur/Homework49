@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class Education_info {
+public class EducationInfo {
     private int id;
     private int resume_id;
     private String institution;
