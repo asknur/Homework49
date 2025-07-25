@@ -1,5 +1,6 @@
 package kg.attractor.demo.controller;
 
+import jakarta.validation.Valid;
 import kg.attractor.demo.model.Vacancy;
 import kg.attractor.demo.service.impl.VacancyServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class VacancyController {
     private final VacancyServiceImpl vacancyService;
 
     @PostMapping
-    public ResponseEntity<Vacancy> createVacancy(@RequestBody Vacancy vacancy) {
+    public ResponseEntity<Vacancy> createVacancy(@RequestBody @Valid Vacancy vacancy) {
         return new ResponseEntity<>(vacancyService.save(vacancy), HttpStatus.OK);
     }
 
