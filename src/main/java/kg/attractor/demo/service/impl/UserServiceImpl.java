@@ -1,7 +1,10 @@
 package kg.attractor.demo.service.impl;
 
 import kg.attractor.demo.dao.UserDao;
+import kg.attractor.demo.dto.UserDto;
+import kg.attractor.demo.exceptions.UserNotFoundException;
 import kg.attractor.demo.model.User;
+import kg.attractor.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,33 +13,38 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService {
 
     private final List<User> users;
     private final UserDao userDao;
 
-    public User save(User user) {
-        return user;
+    @Override
+    public List<User> getUsers() {
+        return userDao.getAllUsers();
     }
 
-    public User getUserById(int userid) {
-        return users.stream().filter(m -> m.getId() == userid).findAny().orElseThrow();
+    @Override
+    public User getUserById(int id) {
+        return userDao.getUserById(id)
+                .orElseThrow(UserNotFoundException::new);
     }
 
-    public List<User> findByUserName(String name) {
+    @Override
+    public List<User> findByName(String name) {
         return userDao.getByName(name);
     }
 
-    public List<User> findByUserPhone(String phone) {
-        return userDao.getByPhone(phone);
+    @Override
+    public User createUser(UserDto user) {
+//        int newUserId = userDao.addUser(user);
+        User newUser = new User();
+        newUser.setName(user.getName());
+        newUser.setPassword(user.getPassword());
+        return newUser;
     }
 
-    public List<User> findByUserEmail(String email) {
-        return userDao.getByEmail(email);
-    }
-
-    public boolean getCheckByEmail(String email) {
-        return userDao.existsByEmail(email);
+    public User save(User user) {
+        return user;
     }
 
 
