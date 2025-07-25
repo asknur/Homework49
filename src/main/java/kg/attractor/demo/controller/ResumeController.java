@@ -1,5 +1,6 @@
 package kg.attractor.demo.controller;
 
+import jakarta.validation.Valid;
 import kg.attractor.demo.model.Resume;
 import kg.attractor.demo.service.impl.ResumeServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class ResumeController {
     private final ResumeServiceImpl resumeService;
 
     @PostMapping
-    public ResponseEntity<Resume> createResume(@RequestBody Resume resume) {
+    public ResponseEntity<Resume> createResume(@RequestBody @Valid Resume resume) {
         return new ResponseEntity<>(resumeService.save(resume), HttpStatus.CREATED);
     }
 

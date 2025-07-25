@@ -4,6 +4,7 @@ import kg.attractor.demo.dao.mappers.UserMapper;
 import kg.attractor.demo.model.Resume;
 import kg.attractor.demo.model.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -16,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 
 @Component
@@ -26,9 +28,14 @@ public class UserDao {
     private final KeyHolder keyHolder = new GeneratedKeyHolder();
 
 
-    public List<User> getById(int id) {
-        String sql = "select * from users where id = ?";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class), id);
+    public Optional<User> getUserById(int id) {
+        String sql = "select * from USERS\n" +
+                "where ID = ?;";
+        return Optional.ofNullable(
+                DataAccessUtils.singleResult(
+                        jdbcTemplate.query(sql, new UserMapper(), id)
+                )
+        );
     }
 
     public List<User> getByName(String name) {
@@ -67,6 +74,26 @@ public class UserDao {
         String sql = "select count(*) from users where email = ?";
         Integer count = jdbcTemplate.queryForObject(sql, Integer.class, email);
         return count > 0;
+    }
+
+
+
+
+    public List<User> getAllUsers() {
+        String sql = "select * from users";
+        return jdbcTemplate.query(sql, new UserMapper());
+    }
+
+
+    public int addUser(User user) {
+        String sql = "insert into USERS (NAME, PASSWORD) values (?, ?);";
+        jdbcTemplate.update(con -> {
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getPassword());
+            return ps;
+        }, keyHolder);
+        return Objects.requireNonNull(keyHolder.getKey()).intValue();
     }
 
 
