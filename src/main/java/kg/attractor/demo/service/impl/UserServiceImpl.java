@@ -6,6 +6,7 @@ import kg.attractor.demo.exceptions.UserNotFoundException;
 import kg.attractor.demo.model.User;
 import kg.attractor.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class UserServiceImpl implements UserService {
 
     private final List<User> users;
     private final UserDao userDao;
+    private final PasswordEncoder encoder;
 
     @Override
     public List<User> getUsers() {

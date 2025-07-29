@@ -56,5 +56,4 @@ public class AuthController {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
-
 }
