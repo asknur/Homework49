@@ -4,13 +4,13 @@ import jakarta.validation.Valid;
 import kg.attractor.demo.dto.UserDto;
 import kg.attractor.demo.model.User;
 import kg.attractor.demo.service.UserService;
-import kg.attractor.demo.service.impl.UserServiceImpl;
+import kg.attractor.demo.service.impl.AuthServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 
 @RestController
@@ -18,42 +18,26 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AuthController {
     private final UserService userService;
-
-    @GetMapping
-    public List<User> getUsers() {
-        return userService.getUsers();
-    }
-
-    @GetMapping("{id}")
-    public User getUser(@PathVariable int id) {
-        return userService.getUserById(id);
-    }
-
-    @GetMapping("username/{name}")
-    public List<User> getUsersByName(@PathVariable String name) {
-        return userService.findByName(name);
-    }
-
-    @PostMapping
-    public User createUser(@RequestBody @Valid UserDto user) {
-        return userService.createUser(user);
-    }
+    private final AuthServiceImpl authService;
+    private final PasswordEncoder encoder;
+    private final JdbcTemplate jdbcTemplate;
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody @Valid User user) {
-        user.setAccount_type(user.getAccount_type());
-        return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
+    public ResponseEntity<String> register(@io.swagger.v3.oas.annotations.parameters.RequestBody @Valid User user) {
+        String hashedPassword = encoder.encode(user.getPassword());
+
+        jdbcTemplate.update("INSERT INTO users(email, name, password, account_type, enabled) VALUES (?, ?, ?, ?, ?)",
+                user.getEmail(), user.getName(), hashedPassword, user.getAccount_type(), true);
+
+        jdbcTemplate.update("INSERT INTO authorities(user_id, authority) VALUES ((SELECT id FROM users WHERE email = ?), ?)",
+                user.getEmail(), "FULL");
+
+        return ResponseEntity.ok("Registered");
     }
 
-    @GetMapping("/employer/{id}")
-    public ResponseEntity<User> getEmployer(@PathVariable int id) {
-        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
-
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody @Valid UserDto user) {
+        String log = authService.login(user);
+        return ResponseEntity.ok(log);
     }
-
-    @GetMapping("/applicant/{id}")
-    public ResponseEntity<User> getApplicant(@PathVariable int id) {
-        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
-    }
-
 }

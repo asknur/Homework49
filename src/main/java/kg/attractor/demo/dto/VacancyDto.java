@@ -24,11 +24,6 @@ public class VacancyDto {
     private String description;
 
     @NotNull
-    @Min(1)
-    @Positive
-    private int category_id;
-
-    @NotNull
     @Size(min = 1, max = 20)
     @Positive
     private float salary;
@@ -44,10 +39,6 @@ public class VacancyDto {
     private int exp_to;
 
     private boolean is_active;
-
-    @NotNull
-    @Min(1)
-    private int author_id;
 
     @NotNull
     private LocalDateTime created_date;
