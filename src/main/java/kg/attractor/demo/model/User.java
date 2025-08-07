@@ -1,13 +1,14 @@
 package kg.attractor.demo.model;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchConnectionDetails;
 
 @Data
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     private int id;
     private String name;
@@ -18,6 +19,7 @@ public class User {
     private String phone_number;
     private String avatar;
     private String account_type;
-
+    private Boolean enabled;
+    private Long role_id;
 
 }

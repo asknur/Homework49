@@ -12,12 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class WorkExperienceInfoDto {
-
-    @NotNull
-    @Min(1)
-    @Positive
-    private int resume_id;
-
     @NotNull
     @Size(min = 2, max = 10)
     @Positive

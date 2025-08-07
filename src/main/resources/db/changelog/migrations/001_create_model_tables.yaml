@@ -41,6 +41,20 @@ databaseChangeLog:
               - column:
                   name: account_type
                   type: varchar(50)
+              - column:
+                  name: enabled
+                  type: boolean
+                  constraints:
+                    nullable: false
+                  defaultValueBoolean: true
+              - column:
+                  name: role_id
+                  type: long
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_role_id_roles
+                    referencedColumnNames: id
+
   - changeSet:
       id: create-category-table
       author: Askar
@@ -320,3 +334,39 @@ databaseChangeLog:
               - column:
                   name: timestamp
                   type: timestamp
+
+        - createTable:
+            tableName: authorities
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: authority
+                  type: varchar(50)
+        - createTable:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: role_name
+                  type: varchar(50)
+              - column:
+                  name: authority_id
+                  type: long
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_roles_authority_id
+                    references: authorities(id)
+
+

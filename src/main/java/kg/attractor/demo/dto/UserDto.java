@@ -1,9 +1,11 @@
 package kg.attractor.demo.dto;
 
 import jakarta.validation.constraints.*;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+
 public class UserDto {
 
     @NotBlank
@@ -23,7 +25,7 @@ public class UserDto {
     private String email;
 
     @NotBlank
-    @Size(min = 5, max = 20, message = "Lenght must be minimum 5 symbols and maximum 20 symbols")
+    @Size(min = 5, max = 20, message = "Length must be minimum 5 symbols and maximum 20 symbols")
     @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).+$",
             message = " Should contain at least one uppercase letter and one number")
     private String password;
@@ -37,4 +39,9 @@ public class UserDto {
     @NotBlank
     @Size(min = 5,max = 15)
     private String account_type;
+
+    private Boolean enabled;
+
+    @NotNull
+    private Long role_id;
 }

@@ -9,9 +9,4 @@ public class CategoryDto {
     @NotBlank
     @Size(min = 5, max = 20)
     private String name;
-
-    @NotNull
-    @Min(1)
-    @Positive
-    private int parent_id;
 }

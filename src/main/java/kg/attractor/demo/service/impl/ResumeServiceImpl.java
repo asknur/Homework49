@@ -23,7 +23,7 @@ public class ResumeServiceImpl {
     }
 
     public List<Resume> findAll() {
-        return resumes;
+        return resumeDao.getAllResumes();
     }
 
     public List<Resume> findByCatId(int categoryId) {
