@@ -1,11 +1,9 @@
 package kg.attractor.demo.dao;
 
 import kg.attractor.demo.dao.mappers.UserMapper;
-import kg.attractor.demo.model.Resume;
 import kg.attractor.demo.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.support.DataAccessUtils;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -76,9 +74,6 @@ public class UserDao {
         return count > 0;
     }
 
-
-
-
     public List<User> getAllUsers() {
         String sql = "select * from users";
         return jdbcTemplate.query(sql, new UserMapper());
@@ -94,6 +89,30 @@ public class UserDao {
             return ps;
         }, keyHolder);
         return Objects.requireNonNull(keyHolder.getKey()).intValue();
+    }
+
+    public void register(User user) {
+        String sql = "insert into users (name, surname, age, email, password, phone_number, avatar, account_type, role_id, enabled) " +
+                "values (:name, :surname, :age, :email, :password, :phone_number, :avatar, :account_type, :role_id, :enabled)";
+
+        namedParameterJdbcTemplate.update(sql,
+                new MapSqlParameterSource()
+                        .addValue("name", user.getName())
+                        .addValue("surname", user.getSurname())
+                        .addValue("age", user.getAge())
+                        .addValue("email", user.getEmail())
+                        .addValue("password", user.getPassword())
+                        .addValue("phone_number", user.getPhone_number())
+                        .addValue("avatar", user.getAvatar())
+                        .addValue("account_type", user.getAccount_type())
+                        .addValue("role_id", user.getRole_id())
+                        .addValue("enabled", true)
+        );
+    }
+
+    public List<User> login(String name, String password) {
+        String sql = "select * from users where name = ? and password = ?";
+        return jdbcTemplate.query(sql, new UserMapper(),  name, password);
     }
 
 

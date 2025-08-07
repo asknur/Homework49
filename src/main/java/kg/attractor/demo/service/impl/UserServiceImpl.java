@@ -1,11 +1,13 @@
 package kg.attractor.demo.service.impl;
 
+import jakarta.validation.Valid;
 import kg.attractor.demo.dao.UserDao;
 import kg.attractor.demo.dto.UserDto;
 import kg.attractor.demo.exceptions.UserNotFoundException;
 import kg.attractor.demo.model.User;
 import kg.attractor.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +15,31 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-
+@Slf4j
 public class UserServiceImpl implements UserService {
 
-    private final List<User> users;
     private final UserDao userDao;
     private final PasswordEncoder encoder;
+
+    @Override
+    public void register(UserDto userDto) {
+        User user = User
+                .builder()
+                .name(userDto.getName())
+                .email(userDto.getEmail())
+                .password(encoder.encode(userDto.getPassword()))
+                .role_id(userDto.getRole_id())
+                .build();
+        userDao.register(user);
+        log.info("User {} registered", userDto.getEmail());
+
+
+    }
+
+    @Override
+    public String login(UserDto user) {
+        return "";
+    }
 
     @Override
     public List<User> getUsers() {
@@ -38,7 +59,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(UserDto user) {
-//        int newUserId = userDao.addUser(user);
         User newUser = new User();
         newUser.setName(user.getName());
         newUser.setPassword(user.getPassword());
@@ -48,6 +68,5 @@ public class UserServiceImpl implements UserService {
     public User save(User user) {
         return user;
     }
-
 
 }
