@@ -11,36 +11,40 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import javax.sql.DataSource;
 
 
 @Configuration
-@EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final DataSource dataSource;
+    private final PasswordEncoder passwordEncoder;
+
 
     @Autowired
-    public void configurationGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        String userQuery = "select email, password, enabled " +
-                "from users " +
-                "where email = ?;";
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        String userQuery = "SELECT email, password, enabled FROM users WHERE email = ?";
 
-        String roleQuery = "select email, role_name " +
-                "from users u, roles r " +
-                "where u.email = ? " +
-                "and u.role_id = r.id;";
+        String roleQuery = "select EMAIL, ROLE_NAME " +
+                "from users ut, " +
+                "ROLES r " +
+                "where ut.EMAIL = ? and ut.ROLE_ID = r.ID;";
 
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .usersByUsernameQuery(userQuery)
-                .authoritiesByUsernameQuery(roleQuery);
+                .authoritiesByUsernameQuery(roleQuery)
+                .passwordEncoder(passwordEncoder);
     }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(AbstractHttpConfigurer::disable)
                 .logout(AbstractHttpConfigurer::disable)
@@ -50,7 +54,6 @@ public class SecurityConfig {
                                         "/resumes/**",
                                         "/vacancies/**",
                                         "/profile/**").fullyAuthenticated()
-
                                 .requestMatchers(
                                         "/auth/register",
                                         "/auth/login",
