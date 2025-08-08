@@ -6,8 +6,8 @@ values ('ADMIN', (select id from authorities where authority = 'FULL')),
     ('USER', (select id from authorities where authority = 'WRITE_ONLY'));
 
 INSERT INTO users (name, surname, age, email, password, phone_number, avatar, account_type, enabled, role_id)
-VALUES ('Асан', 'Токтосунов', 25, 'asan@example.com', '123', '0500123456', 'avatar1.png', 'applicant', true, (SELECT id FROM roles WHERE role_name = 'USER')),
-       ('Улан', 'Маматов', 30, 'ulan@example.com', '123', '0500234567', 'avatar2.png', 'employer', true, (SELECT id FROM roles WHERE role_name = 'ADMIN'));
+VALUES ('Асан', 'Токтосунов', 25, 'asan@example.com', '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', '0500123456', 'avatar1.png', 'applicant', true, (SELECT id FROM roles WHERE role_name = 'USER')),
+       ('Улан', 'Маматов', 30, 'ulan@example.com', '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', '0500234567', 'avatar2.png', 'employer', true, (SELECT id FROM roles WHERE role_name = 'ADMIN'));
 
 INSERT INTO categories (name, parent_id)
 VALUES ('IT', null),
