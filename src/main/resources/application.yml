@@ -13,6 +13,11 @@
 
   liquibase:
     change-log: classpath:/db/changelog/master.yaml
+  mvc:
+    static-path-pattern: /static/**
+    log-request-details: false
+  freemarker:
+    expose-session-attributes: true
 
 
  server:
@@ -29,3 +34,4 @@
      file: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
    file:
      path: logs
+     
