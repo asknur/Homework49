@@ -1,116 +1,13 @@
--- create table if not exists users
--- (
---     id int auto_increment primary key,
---     name text,
---     surname text,
---     age int,
---     email text,
---     password text,
---     phone_number varchar(55),
---     avatar text,
---     account_type varchar(50)
--- );
---
--- create table if not exists categories
--- (
---     id int auto_increment primary key,
---     name text,
---     parent_id int
--- );
---
--- create table if not exists contact_type
--- (
---     id int auto_increment primary key,
---     type text
--- );
---
--- create table if not exists resumes
--- (
---     id int auto_increment primary key,
---     applicant_id int,
---     name text,
---     category_id int,
---     salary real,
---     is_active boolean,
---     created_date timestamp,
---     update_time timestamp,
---     foreign key (applicant_id) references users(id) on DELETE cascade,
---     foreign key (category_id) references categories(id) on DELETE cascade
--- );
---
--- create table if not exists vacancies
--- (
---     id int auto_increment primary key,
---     name text,
---     description text,
---     category_id int,
---     salary real,
---     exp_from int,
---     exp_to int,
---     is_active boolean,
---     author_id int,
---     created_date timestamp,
---     update_time timestamp,
---     foreign key (category_id) references categories(id) on DELETE cascade,
---     foreign key (author_id) references users(id) on DELETE cascade
--- );
---
--- create table if not exists contacts_info
--- (
---     id int auto_increment primary key,
---     type_id int,
---     resume_id int,
---     contact_value text,
---     foreign key (type_id) references contact_type(id) on DELETE cascade,
---     foreign key (resume_id) references resumes(id) on DELETE cascade
--- );
---
--- create table if not exists education_info
--- (
---     id int auto_increment primary key,
---     resume_id int,
---     institution text,
---     program text,
---     start_date date,
---     end_date date,
---     degree text,
---     foreign key (resume_id) references resumes(id) on DELETE cascade
--- );
---
--- create table if not exists work_experience_info
--- (
---     id int auto_increment primary key,
---     resume_id int,
---     years int,
---     company_name text,
---     position text,
---     responsibilities text,
---     foreign key (resume_id) references resumes(id) on DELETE cascade
--- );
---
--- create table if not exists responded_applicants
--- (
---     id int auto_increment primary key,
---     resume_id int,
---     vacancy_id int,
---     confirmation boolean,
---     foreign key (resume_id) references resumes(id) on DELETE cascade,
---     foreign key (vacancy_id) references vacancies(id) on DELETE cascade
--- );
---
---
--- create table if not exists messages
--- (
---     id int auto_increment primary key,
---     responded_applicant_id int,
---     content text,
---     timestamp timestamp,
---     foreign key (responded_applicant_id) references responded_applicants(id) on DELETE cascade
--- );
+insert into AUTHORITIES(AUTHORITY)
+values ( 'FULL'), ('WRITE_ONLY');
 
-INSERT INTO users (name, surname, age, email, password, phone_number, avatar, account_type)
-VALUES ('Асан', 'Токтосунов', 25, 'asan@example.com', '123', '0500123456', 'avatar1.png', 'applicant'),
-       ('Улан', 'Маматов', 30, 'ulan@example.com', '123', '0500234567', 'avatar2.png', 'employer');
+insert into roles(role_name, authority_id)
+values ('ADMIN', (select id from authorities where authority = 'FULL')),
+    ('USER', (select id from authorities where authority = 'WRITE_ONLY'));
+
+INSERT INTO users (name, surname, age, email, password, phone_number, avatar, account_type, enabled, role_id)
+VALUES ('Асан', 'Токтосунов', 25, 'asan@example.com', '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', '0500123456', 'avatar1.png', 'applicant', true, (SELECT id FROM roles WHERE role_name = 'USER')),
+       ('Улан', 'Маматов', 30, 'ulan@example.com', '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', '0500234567', 'avatar2.png', 'employer', true, (SELECT id FROM roles WHERE role_name = 'ADMIN'));
 
 INSERT INTO categories (name, parent_id)
 VALUES ('IT', null),

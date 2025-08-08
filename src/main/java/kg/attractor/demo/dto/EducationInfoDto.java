@@ -13,12 +13,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EducationInfoDto {
-
-    @NotNull
-    @Min(1)
-    @Positive
-    private int resume_id;
-
     @NotBlank
     @Size(min = 3, max = 20)
     private String institution;
