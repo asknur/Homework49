@@ -1,47 +1,52 @@
 package kg.attractor.demo.controller;
 
-import jakarta.validation.Valid;
 import kg.attractor.demo.model.Resume;
 import kg.attractor.demo.service.impl.ResumeServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
-
-@RestController
-@RequestMapping("/resumes")
+@Controller
+@RequestMapping("/resume")
 @RequiredArgsConstructor
 
 public class ResumeController {
     private final ResumeServiceImpl resumeService;
 
-    @PostMapping
-    public ResponseEntity<Resume> createResume(@RequestBody @Valid Resume resume) {
-        return new ResponseEntity<>(resumeService.save(resume), HttpStatus.CREATED);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Resume> updateResume(@PathVariable int id, @RequestBody Resume resume) {
-        resume.setId(id);
-        return new ResponseEntity<>(resumeService.save(resume), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteResume(@PathVariable int id) {
-        resumeService.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
     @GetMapping
-    public ResponseEntity<List<Resume>> getAllResumes() {
-        return new ResponseEntity<>(resumeService.findAll(), HttpStatus.OK);
+    public String listResume(Model model) {
+        model.addAttribute("resumes", resumeService.findAll());
+        return "resume";
     }
 
-    @GetMapping("/category/{categoryId}")
-    public ResponseEntity<List<Resume>> getResumesByCategory(@PathVariable int categoryId) {
-        return new ResponseEntity<>(resumeService.findByCatId(categoryId), HttpStatus.OK);
+    @GetMapping("/create")
+    public String createForm(Model model) {
+        model.addAttribute("resumes", new Resume());
+        return "resume-create";
     }
+
+    @PostMapping("/create")
+    public String createResume(Resume resume) {
+        resumeService.save(resume);
+        return "redirect:/resume";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editForm(Model model, @PathVariable Integer id) {
+        model.addAttribute("resumes", resumeService.findAll());
+        return "resume-edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String edit(Resume resume) {
+        resumeService.save(resume);
+        return "redirect:/resume";
+    }
+
+
 
 }

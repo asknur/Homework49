@@ -1,29 +1,27 @@
 package kg.attractor.demo.controller;
 
-import jakarta.validation.Valid;
-import kg.attractor.demo.dto.UserDto;
-import kg.attractor.demo.service.UserService;
-import kg.attractor.demo.service.impl.UserServiceImpl;
+import kg.attractor.demo.model.User;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-
-@RestController
+@Controller
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
-    private final UserServiceImpl userService;
-    private final PasswordEncoder encoder;
-    private final JdbcTemplate jdbcTemplate;
 
-
-
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody @Valid UserDto user) {
-        String log = userService.login(user);
-        return ResponseEntity.ok(log);
+    @GetMapping("/register")
+    public String register(Model model) {
+        return "auth/register";
     }
+
+    @GetMapping("/login")
+    public String login(Model model) {
+        return "auth/login";
+    }
+
+
+
 }

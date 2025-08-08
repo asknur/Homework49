@@ -1,57 +1,48 @@
 package kg.attractor.demo.controller;
 
-import jakarta.validation.Valid;
 import kg.attractor.demo.model.Vacancy;
 import kg.attractor.demo.service.impl.VacancyServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
-
-@RestController
-@RequestMapping("/vacancies")
+@Controller
+@RequestMapping("/vacancy")
 @RequiredArgsConstructor
-
 public class VacancyController {
     private final VacancyServiceImpl vacancyService;
 
-    @PostMapping
-    public ResponseEntity<Vacancy> createVacancy(@RequestBody @Valid Vacancy vacancy) {
-        return new ResponseEntity<>(vacancyService.save(vacancy), HttpStatus.OK);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Vacancy> updateVacancy(@PathVariable int id, @RequestBody Vacancy vacancy) {
-        vacancy.setId(id);
-        return new ResponseEntity<>(vacancyService.save(vacancy), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteVacancy(@PathVariable int id) {
-        vacancyService.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
     @GetMapping
-    public ResponseEntity<List<Vacancy>> getAllVacancies() {
-        return new ResponseEntity<>(vacancyService.findByTrue(), HttpStatus.OK);
+    public String listVacancies(Model model) {
+        model.addAttribute("vacancies", vacancyService.getAllVacancies());
+        return "vacancy";
     }
 
-    @GetMapping("/category/{categoryId}")
-    public ResponseEntity<List<Vacancy>> getVacanciesByCategory(@PathVariable int categoryId) {
-        return new ResponseEntity<>(vacancyService.findCategoryIdAndTrue(categoryId), HttpStatus.OK);
+    @GetMapping("/create")
+    public String createVacancy(Model model) {
+        model.addAttribute("vacancies", new Vacancy());
+        return "vacancy-create";
     }
 
-    @PostMapping("/{id}/respond")
-    public ResponseEntity<String> respondToVacancy(@PathVariable int id, @RequestParam int resumeId) {
-        return new ResponseEntity<>("Отклик на вакансию " + id + " сохранён", HttpStatus.OK);
+    @PostMapping("/create")
+    public String createVacancy(Vacancy vacancy) {
+        vacancyService.createVacancy(vacancy);
+        return "redirect:/vacancy";
     }
 
-    @GetMapping("/{id}/applicants")
-    public ResponseEntity<String> getApplicants(@PathVariable int id) {
-        return new ResponseEntity<>("Список соискателей на вакансию " + id, HttpStatus.OK);
+    @GetMapping("/edit/{id}")
+    public String editVacancy(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("vacancies", vacancyService.getById(id));
+        return "vacancy-edit";
     }
 
+    @PostMapping("/edit/{id}")
+    public String updateVacancy(Vacancy vacancy) {
+        vacancyService.save(vacancy);
+        return "redirect:/vacancy";
+    }
 }
