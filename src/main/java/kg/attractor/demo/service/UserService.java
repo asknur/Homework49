@@ -18,6 +18,8 @@ public interface UserService {
 
     List<User> findByName(String username);
 
+    List<User> getByEmail(String email);
+
     User createUser(UserDto user);
 
     User save(User user);
