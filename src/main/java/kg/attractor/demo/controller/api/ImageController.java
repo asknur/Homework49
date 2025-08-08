@@ -1,15 +1,14 @@
-package kg.attractor.demo.controller;
+package kg.attractor.demo.controller.api;
 
 import kg.attractor.demo.dto.ImageDto;
 import kg.attractor.demo.service.ImageService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("images")
+@RequestMapping("/api/images")
 @RequiredArgsConstructor
 public class ImageController {
 

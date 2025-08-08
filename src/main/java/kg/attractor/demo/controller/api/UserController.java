@@ -1,4 +1,4 @@
-package kg.attractor.demo.controller;
+package kg.attractor.demo.controller.api;
 
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -9,14 +9,12 @@ import kg.attractor.demo.service.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/profile")
+@RestController("userProfile")
+@RequestMapping("/api/profile")
 @RequiredArgsConstructor
 
 public class UserController {
