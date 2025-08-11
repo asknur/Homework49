@@ -1,6 +1,8 @@
 package kg.attractor.demo.exceptions;
 
-public class NotFoundException extends RuntimeException {
+import java.util.NoSuchElementException;
+
+public class NotFoundException extends NoSuchElementException {
     public NotFoundException(String prefix) {
         super(prefix + " not found");
     }
