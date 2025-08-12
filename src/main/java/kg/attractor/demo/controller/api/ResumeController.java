@@ -1,6 +1,7 @@
 package kg.attractor.demo.controller.api;
 
 import jakarta.validation.Valid;
+import kg.attractor.demo.dto.ResumeDto;
 import kg.attractor.demo.model.Resume;
 import kg.attractor.demo.service.impl.ResumeServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -18,13 +19,15 @@ public class ResumeController {
     private final ResumeServiceImpl resumeService;
 
     @PostMapping
-    public ResponseEntity<Resume> createResume(@RequestBody @Valid Resume resume) {
+    public ResponseEntity<Resume> createResume(@RequestBody @Valid ResumeDto resume) {
         return new ResponseEntity<>(resumeService.save(resume), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Resume> updateResume(@PathVariable int id, @RequestBody Resume resume) {
-        resume.setId(id);
+    public ResponseEntity<Resume> updateResume(@PathVariable int id, @RequestBody ResumeDto resume) {
+        resume.setName(resume.getName());
+        resume.setSalary(resume.getSalary());
+        resume.setUpdate_time(resume.getUpdate_time());
         return new ResponseEntity<>(resumeService.save(resume), HttpStatus.OK);
     }
 
