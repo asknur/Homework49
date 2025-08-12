@@ -76,9 +76,12 @@ public class UserServiceImpl implements UserService {
         return newUser;
     }
 
-    public User save(User user) {
-        log.info("Saving user: {}", user);
-        return user;
+    public User save(UserDto userDto) {
+        log.info("Saving user: {}", userDto);
+        User newUser = new User();
+        newUser.setName(userDto.getName());
+        newUser.setPassword(encoder.encode(userDto.getPassword()));
+        return newUser;
     }
 
 }
