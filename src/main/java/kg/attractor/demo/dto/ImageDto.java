@@ -19,6 +19,6 @@ public class ImageDto {
     @NotBlank
     private MultipartFile file;
 
-    @NotNull
+    @NotNull(message = "Название обязательно")
     private long UserId;
 }

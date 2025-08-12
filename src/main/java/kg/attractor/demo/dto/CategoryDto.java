@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CategoryDto {
 
-    @NotBlank
+    @NotBlank(message = "Название обязательно")
     @Size(min = 5, max = 20)
     private String name;
 }

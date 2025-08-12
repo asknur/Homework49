@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ContactInfoDto {
-    @NotBlank
+    @NotBlank(message = "Название обязательно")
     @Size(min = 3, max = 20)
     private String value;
 }

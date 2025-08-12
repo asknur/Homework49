@@ -15,15 +15,15 @@ import java.time.LocalDateTime;
 
 public class MessageDto {
 
-    @NotNull
+    @NotNull(message = "Название обязательно")
     @Min(1)
     @Positive
     private int responded_applicants;
 
-    @NotBlank
+    @NotBlank(message = "Название обязательно")
     @Size(min = 3, max = 20)
     private String content;
 
-    @NotNull
+    @NotNull(message = "Дата обязательно")
     private LocalDateTime timestamp;
 }
