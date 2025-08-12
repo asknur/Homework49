@@ -1,6 +1,8 @@
 package kg.attractor.demo.exceptions;
 
-public class UserNotFoundException extends NotFoundException {
+import java.util.NoSuchElementException;
+
+public class UserNotFoundException extends NoSuchElementException {
     public UserNotFoundException() {
         super("User");
     }
