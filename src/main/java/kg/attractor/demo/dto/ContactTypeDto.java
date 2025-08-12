@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 
 public class ContactTypeDto {
 
-    @NotBlank
+    @NotBlank(message = "Тип обязательно")
     @Size(min = 3, max = 20)
     private String type;
 }

@@ -1,15 +1,21 @@
 package kg.attractor.demo.controller;
 
+import jakarta.validation.Valid;
+import kg.attractor.demo.dto.UserDto;
 import kg.attractor.demo.model.User;
+import kg.attractor.demo.service.ImageService;
 import kg.attractor.demo.service.UserService;
 import kg.attractor.demo.service.impl.ResumeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/profile")
@@ -17,6 +23,7 @@ import java.security.Principal;
 public class ProfileController {
     private final UserService userService;
     private final ResumeServiceImpl  resumeService;
+    private final ImageService imageService;
 
     @GetMapping
     public String showProfile(Model model) {
@@ -25,14 +32,32 @@ public class ProfileController {
     }
 
     @GetMapping("/edit")
-    public String editProfileForm(Model model, User user) {
-        model.addAttribute("users", userService.getByEmail(user.getEmail()));
+    public String editProfileForm(Model model, Principal principal) {
+        UserDto userDto = (UserDto) userService.getByEmail(principal.getName());
+        model.addAttribute("user", userDto);
         return "profile-edit";
     }
 
     @PostMapping("/edit")
-    public String updateProfile(@ModelAttribute("users") User user) {
-        userService.save(user);
+    public String updateProfile(@Valid UserDto userDto, BindingResult bindingResult, Model model) {
+        if (!bindingResult.hasErrors()) {
+            userService.save(userDto);
+            return "redirect:/";
+        }
+        model.addAttribute("usersDto", userDto);
+        return "profile-edit";
+    }
+
+    @PostMapping("/photo")
+    public String uploadPhoto(@Valid UserDto userDto, BindingResult bindingResult, Model model, @RequestParam("avatarFile") MultipartFile avatarFile) {
+        if (bindingResult.hasErrors()) {
+            return "profile-edit";
+        }
+        if (avatarFile.isEmpty()) {
+            String file = imageService.saveUploadedFile(avatarFile, "avatars");
+        }
+        userService.save(userDto);
         return "redirect:/profile";
+
     }
 }

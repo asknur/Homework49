@@ -13,21 +13,21 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EducationInfoDto {
-    @NotBlank
+    @NotBlank(message = "Название обязательно")
     @Size(min = 3, max = 20)
     private String institution;
 
-    @NotBlank
+    @NotBlank(message = "Название обязательно")
     @Size(min = 3, max = 20)
     private String program;
 
-    @NotNull
+    @NotNull(message = "Дата обязательно")
     private LocalDateTime start_date;
 
-    @NotNull
+    @NotNull(message = "Дата обязательно")
     private LocalDateTime end_date;
 
-    @NotBlank
+    @NotBlank(message = "Название обязательно")
     @Size(min = 5, max = 20)
     private String degree;
 }

@@ -5,13 +5,13 @@
     <form method="post" action="/vacancies/edit/${vacancy.id}">
         <div class="mb-3">
             <label for="title" class="form-label">Название вакансии</label>
-            <input type="text" id="title" name="title" class="form-control" value="${vacancy.title!}">
+            <input type="text" id="title" name="title" class="form-control" value="${vacancy.name!}">
         </div>
         <div class="mb-3">
             <label for="company" class="form-label">Компания</label>
-            <input type="text" id="company" name="company" class="form-control" value="${vacancy.company!}">
+            <input type="text" id="company" name="company" class="form-control" value="${vacancy.description!}">
         </div>
+    </#list>
         <button type="submit" class="btn btn-success">Сохранить</button>
     </form>
-    </#list>>
 </@main.layout>

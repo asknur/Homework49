@@ -12,20 +12,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class WorkExperienceInfoDto {
-    @NotNull
+    @NotNull(message = "Название обязательно")
     @Size(min = 2, max = 10)
     @Positive
     private int years;
 
-    @NotBlank
+    @NotBlank(message = "Название обязательно")
     @Size(min = 2, max = 30)
     private String company_name;
 
-    @NotBlank
+    @NotBlank(message = "Название обязательно")
     @Size(min = 2, max = 30)
     private String position;
 
-    @NotBlank
+    @NotBlank(message = "Название обязательно")
     @Size(min = 2, max = 30)
     private String responsibilities;
 }

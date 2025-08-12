@@ -15,34 +15,34 @@ import java.time.LocalDateTime;
 
 public class VacancyDto {
 
-    @NotBlank
+    @NotBlank(message = "Название обязательно")
     @Size(min = 5, max = 20)
     private String name;
 
-    @NotBlank
+    @NotBlank(message = "Название обязательно")
     @Size(min = 5, max = 50)
     private String description;
 
-    @NotNull
+    @NotNull(message = "Название обязательно")
     @Size(min = 1, max = 20)
     @Positive
     private float salary;
 
-    @NotNull
+    @NotNull(message = "Время обязательно")
     @Size(min = 1, max = 20)
     @Positive
     private int exp_from;
 
-    @NotNull
+    @NotNull(message = "Время обязательно")
     @Size(min = 1, max = 20)
     @Positive
     private int exp_to;
 
     private boolean is_active;
 
-    @NotNull
+    @NotNull(message = "Дата обязательно")
     private LocalDateTime created_date;
 
-    @NotNull
+    @NotNull(message = "Дата обязательно")
     private LocalDateTime updated_time;
 }

@@ -1,6 +1,7 @@
 package kg.attractor.demo.controller.api;
 
 import jakarta.validation.Valid;
+import kg.attractor.demo.dto.VacancyDto;
 import kg.attractor.demo.model.Vacancy;
 import kg.attractor.demo.service.impl.VacancyServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -18,13 +19,13 @@ public class VacancyController {
     private final VacancyServiceImpl vacancyService;
 
     @PostMapping
-    public ResponseEntity<Vacancy> createVacancy(@RequestBody @Valid Vacancy vacancy) {
+    public ResponseEntity<Vacancy> createVacancy(@RequestBody @Valid VacancyDto vacancy) {
         return new ResponseEntity<>(vacancyService.save(vacancy), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Vacancy> updateVacancy(@PathVariable int id, @RequestBody Vacancy vacancy) {
-        vacancy.setId(id);
+    public ResponseEntity<Vacancy> updateVacancy(@PathVariable int id, @RequestBody VacancyDto vacancy) {
+        vacancy.setName(vacancy.getName());
         return new ResponseEntity<>(vacancyService.save(vacancy), HttpStatus.OK);
     }
 

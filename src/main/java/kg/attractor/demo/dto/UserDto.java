@@ -13,40 +13,41 @@ import lombok.NoArgsConstructor;
 
 public class UserDto {
 
-    @NotBlank
+    @NotBlank(message = "Имя обязательно")
     @Size(min = 5, max = 20)
     private String name;
 
-    @NotBlank
+    @NotBlank(message = "Фамилие обязательно")
     @Size(min = 5, max = 20)
     private String surname;
 
+    @NotNull(message = "Возраст обязательно")
     @Positive
     @Min(1)
     private int age;
 
     @Email
-    @NotBlank
+    @NotBlank(message = "Почта обязательно")
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "Пароль обязательно")
     @Size(min = 5, max = 20, message = "Length must be minimum 5 symbols and maximum 20 symbols")
     @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).+$",
             message = " Should contain at least one uppercase letter and one number")
     private String password;
 
-    @NotBlank
+    @NotBlank(message = "Номер обязательно")
     private String phone_number;
 
-    @NotBlank
+    @NotBlank(message = "Аватар обязательно")
     private String avatar;
 
-    @NotBlank
+    @NotBlank(message = "Тип аккаунта обязательно")
     @Size(min = 5,max = 15)
     private String account_type;
 
     private Boolean enabled;
 
-    @NotNull
+    @NotNull(message = "Название обязательно")
     private Long role_id;
 }

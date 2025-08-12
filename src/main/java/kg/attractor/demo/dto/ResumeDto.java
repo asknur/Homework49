@@ -14,20 +14,20 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 
 public class ResumeDto {
-    @NotBlank
+    @NotBlank(message = "Имя обязательно")
     @Size(min = 2,  max = 20)
     private String name;
 
-    @NotNull
+    @NotNull(message = "Зарплата обязательно")
     @Size(min = 1,  max = 20)
     private float salary;
 
     @NotNull
     private boolean is_active;
 
-    @NotNull
+    @NotNull(message = "Дава обязательно")
     private LocalDateTime created_date;
 
-    @NotNull
+    @NotNull(message = "Дата обязательно")
     private LocalDateTime update_time;
 }
