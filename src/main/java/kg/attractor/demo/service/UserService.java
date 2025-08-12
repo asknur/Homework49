@@ -22,6 +22,6 @@ public interface UserService {
 
     User createUser(UserDto user);
 
-    User save(User user);
+    User save(UserDto userDto);
 
 }
