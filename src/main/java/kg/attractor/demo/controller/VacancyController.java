@@ -1,14 +1,19 @@
 package kg.attractor.demo.controller;
 
+import jakarta.validation.Valid;
+import kg.attractor.demo.dto.VacancyDto;
 import kg.attractor.demo.model.Vacancy;
 import kg.attractor.demo.service.impl.VacancyServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/vacancy")
@@ -29,20 +34,29 @@ public class VacancyController {
     }
 
     @PostMapping("/create")
-    public String createVacancy(Vacancy vacancy) {
-        vacancyService.createVacancy(vacancy);
-        return "redirect:/vacancy";
+    public String createVacancy(@Valid VacancyDto vacancyDto, BindingResult bindingResult, Model model) {
+        if (!bindingResult.hasErrors()) {
+            vacancyService.createVacancy(vacancyDto);
+            return "redirect:/";
+        }
+        model.addAttribute("vacancyDto", vacancyDto);
+        return "vacancy-create";
     }
 
     @GetMapping("/edit/{id}")
-    public String editVacancy(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("vacancies", vacancyService.getById(id));
+    public String editVacancy(Model model, @PathVariable int id) {
+        model.addAttribute("vacancies", List.of(vacancyService.getById(id)));
         return "vacancy-edit";
     }
 
     @PostMapping("/edit/{id}")
-    public String updateVacancy(Vacancy vacancy) {
-        vacancyService.save(vacancy);
-        return "redirect:/vacancy";
+    public String updateVacancy(@Valid VacancyDto vacancyDto, BindingResult bindingResult, Model model) {
+        if (!bindingResult.hasErrors()) {
+            vacancyService.save(vacancyDto);
+            return "redirect:/";
+        }
+        model.addAttribute("vacancyDto", vacancyDto);
+        return "vacancy-edit";
+
     }
 }
