@@ -1,14 +1,25 @@
 package kg.attractor.demo.model;
 
-import lombok.Builder;
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Data
-@Builder
+@Getter
+@Setter
+@Entity
+@Table(name = "responded_applicants")
 public class RespondedApplicant {
-    private int id;
-    private int resume_id;
-    private int vacancy_id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "resume_id")
+    private Resume resume_id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vacancy_id")
+    private Vacancy vacancy_id;
+
     private boolean confirmation;
 
 }

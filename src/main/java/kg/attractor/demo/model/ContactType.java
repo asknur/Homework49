@@ -1,12 +1,18 @@
 package kg.attractor.demo.model;
 
-import lombok.Builder;
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Data
-@Builder
+@Getter
+@Setter
+@Entity
+@Table(name = "contact_type")
 public class ContactType {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(length = 50, nullable = false)
     private String type;
 
 }

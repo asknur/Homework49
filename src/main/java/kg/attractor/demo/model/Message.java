@@ -1,16 +1,25 @@
 package kg.attractor.demo.model;
-import lombok.Builder;
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-@Data
-@Builder
-
+@Getter
+@Setter
+@Entity
+@Table(name = "messages")
 public class Message {
-    private int id;
-    private int responded_applicants;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "responded_applicant_id")
+    private RespondedApplicant responded_applicant_id;
+
     private String content;
+
     private LocalDateTime timestamp;
 
 

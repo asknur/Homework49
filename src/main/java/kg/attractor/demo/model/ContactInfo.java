@@ -3,24 +3,27 @@ package kg.attractor.demo.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
-@Builder
 @Entity
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "contacts_info")
 public class ContactInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    private int type_id;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id")
+    private List<ContactType> type_id;
 
-    private int resume_id;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id")
+    private List<Resume> resume_id;
 
     @Column(length = 50, nullable = false)
-    private String value;
+    private String contact_value;
 
 
 }

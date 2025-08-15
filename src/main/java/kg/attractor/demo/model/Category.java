@@ -5,19 +5,17 @@ import lombok.*;
 
 @Getter
 @Setter
-@Builder
 @Entity
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "categories")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    @Column(length = 50, nullable = false)
     private String name;
 
-    private int parent_id;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id")
+    private Category parent_id;
 
 }
