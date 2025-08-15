@@ -1,9 +1,11 @@
 package kg.attractor.demo.service.impl;
 
-import kg.attractor.demo.dao.VacancyDao;
+import jakarta.persistence.EntityNotFoundException;
+
 import kg.attractor.demo.dto.VacancyDto;
 import kg.attractor.demo.model.User;
 import kg.attractor.demo.model.Vacancy;
+import kg.attractor.demo.repository.VacancyRepository;
 import kg.attractor.demo.service.VacancyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +17,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class VacancyServiceImpl implements VacancyService {
-    private final VacancyDao vacancyDao;
+    //    private final VacancyDao vacancyDao;
+    private final VacancyRepository vacancyRepository;
 
     @Override
     public Vacancy createVacancy(VacancyDto vacancyDto) {
@@ -25,61 +28,66 @@ public class VacancyServiceImpl implements VacancyService {
         vacancy.setDescription(vacancyDto.getDescription());
         vacancy.setCreated_date(vacancyDto.getCreated_date());
         vacancy.setSalary(vacancyDto.getSalary());
-        return vacancy;
+        return vacancyRepository.save(vacancy);
     }
 
     @Override
     public Vacancy save(VacancyDto vacancyDto) {
         log.info("Saving vacancy: {}", vacancyDto.getName());
-        return null;
-
+        Vacancy vacancy = new Vacancy();
+        vacancy.setName(vacancyDto.getName());
+        vacancy.setDescription(vacancyDto.getDescription());
+        vacancy.setCreated_date(vacancyDto.getCreated_date());
+        vacancy.setSalary(vacancyDto.getSalary());
+        return vacancyRepository.save(vacancy);
     }
 
     @Override
-    public Vacancy getById(int id){
+    public Vacancy getById(int id) {
         log.info("Getting vacancy by id: {}", id);
-        return null;
+        return vacancyRepository.findById((long) id)
+                .orElseThrow(() -> new EntityNotFoundException("Vacancy Not Found"));
     }
 
     @Override
     public void deleteById(int id) {
         log.info("Deleting vacancy by id: {}", id);
-        return;
+        vacancyRepository.deleteById((long) id);
     }
 
     @Override
     public List<Vacancy> findByTrue() {
         log.info("Finding Vacancy by true");
-        return null;
+        return vacancyRepository.findByIsActiveTrue();
     }
 
     @Override
     public List<Vacancy> findCategoryIdAndTrue(int categoryId) {
         log.info("Finding Vacancy by categoryId: {}", categoryId);
-        return null;
+        return vacancyRepository.findByCategoryIdAndIsActiveTrue((long) categoryId);
     }
 
     @Override
     public List<Vacancy> getRespondedVacanciesByUser(int userId) {
         log.info("Getting responded vacancies for user id: {}", userId);
-        return vacancyDao.getRespondedVac(userId);
+        return vacancyRepository.findRespondedVacanciesByUserId((long) userId);
     }
 
     @Override
     public List<Vacancy> getAllVacancies() {
         log.info("Getting all vacancies");
-        return vacancyDao.getAllVac();
+        return vacancyRepository.findAll();
     }
 
     @Override
     public List<Vacancy> getVacanciesByCategory(int categoryId) {
         log.info("Getting vacancies by category id: {}", categoryId);
-        return vacancyDao.findVacanciesByCategoryId(categoryId);
+        return vacancyRepository.findByCategoryId((long) categoryId);
     }
 
     @Override
     public List<User> getApplicantsByVacancy(int vacancyId) {
         log.info("Getting applicants for vacancy id: {}", vacancyId);
-        return vacancyDao.findApplicantsByVacancyId(vacancyId);
+        return null;
     }
 }

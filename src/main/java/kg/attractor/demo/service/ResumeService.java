@@ -16,9 +16,9 @@ public interface ResumeService {
 
     List<Resume> findAll();
 
-    List<Resume> findByCatId(long categoryId);
+    List<Resume> findByCatId(int categoryId);
 
-    List<Resume> getByCategory(long categoryId);
+    List<Resume> getByCategory(int categoryId);
 
-    List<Resume> getByApplicant(long applicantId);
+    List<Resume> getByApplicant(int applicantId);
 }

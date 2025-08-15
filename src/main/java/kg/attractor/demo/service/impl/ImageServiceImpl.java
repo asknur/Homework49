@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Slf4j
 public class ImageServiceImpl implements ImageService {
-
     @Override
     public ResponseEntity<?> getById(String filename){
         log.info("Getting image by id: {}", filename);

@@ -15,19 +15,21 @@ public class Resume {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "applicant_id")
-    private User applicant_id;
+    @Column(name = "applicant_id")
+    private Long applicantId;
 
     private String name;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private Category category_id;
+    private Category category;
 
     private float salary;
-    private boolean is_active;
-    private LocalDateTime created_date;
-    private LocalDateTime update_time;
+
+    @Column(name = "is_active")
+    private boolean isActive;
+
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
 
 }
