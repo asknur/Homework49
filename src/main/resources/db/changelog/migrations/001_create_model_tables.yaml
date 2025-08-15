@@ -156,7 +156,7 @@ databaseChangeLog:
                   type: varchar(255)
               - column:
                   name: description
-                  type: text
+                  type: varchar
               - column:
                   name: category_id
                   type: long
@@ -185,7 +185,7 @@ databaseChangeLog:
                   name: created_date
                   type: timestamp
               - column:
-                  name: update_time
+                  name: updated_time
                   type: timestamp
   - changeSet:
       id: create-contacts-info-table
@@ -242,10 +242,10 @@ databaseChangeLog:
                   type: varchar(255)
               - column:
                   name: start_date
-                  type: date
+                  type: timestamp(6)
               - column:
                   name: end_date
-                  type: date
+                  type: timestamp(6)
               - column:
                   name: degree
                   type: varchar(255)
@@ -280,7 +280,7 @@ databaseChangeLog:
                   type: varchar(255)
               - column:
                   name: responsibilities
-                  type: text
+                  type: varchar(255)
   - changeSet:
       id: create-responded-applicants-table
       author: Askar
@@ -330,7 +330,7 @@ databaseChangeLog:
                     references: responded_applicants(id)
               - column:
                   name: content
-                  type: text
+                  type: varchar(200)
               - column:
                   name: timestamp
                   type: timestamp

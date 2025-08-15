@@ -64,7 +64,7 @@ VALUES (2, 'Frontend Developer', 1, 1100.00, true, CURRENT_TIMESTAMP, CURRENT_TI
        (15, 'Network Engineer', 1, 1050.00, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
        (16, 'Content Manager', 1, 700.00, false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
-INSERT INTO vacancies (name, description, category_id, salary, exp_from, exp_to, is_active, author_id, created_date, update_time)
+INSERT INTO vacancies (name, description, category_id, salary, exp_from, exp_to, is_active, author_id, created_date, updated_time)
 VALUES ('Backend Developer', 'Spring Boot, PostgreSQL', 1, 1500.00, 2, 5, true, 17, CURRENT_TIMESTAMP,CURRENT_TIMESTAMP),
        ('HR Specialist', 'Подбор персонала, интервью', 2, 800.00, 1, 3, true, 18, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
        ('Python Developer', 'Django, PostgreSQL', 1, 1500.00, 2, 5, true, 19, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),

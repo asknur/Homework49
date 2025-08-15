@@ -1,23 +1,35 @@
 package kg.attractor.demo.model;
 
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-@Data
 @Getter
 @Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity
+@Table(name = "resumes")
 public class Resume {
-    private int id;
-    private int applicant_id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "applicant_id")
+    private Long applicantId;
+
     private String name;
-    private int category_id;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     private float salary;
-    private boolean is_active;
-    private LocalDateTime created_date;
-    private LocalDateTime update_time;
+
+    @Column(name = "is_active")
+    private boolean isActive;
+
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
 
 }

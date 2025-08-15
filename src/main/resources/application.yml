@@ -13,7 +13,11 @@
   jpa:
     hibernate:
       ddl-auto: validate
-
+    properties:
+      hibernate:
+        generate_statistics: false
+        format_sql: true
+    show-sql: false
 
   liquibase:
     change-log: classpath:/db/changelog/master.yaml

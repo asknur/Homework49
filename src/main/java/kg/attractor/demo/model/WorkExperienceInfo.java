@@ -1,13 +1,21 @@
 package kg.attractor.demo.model;
 
-import lombok.Builder;
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Data
-@Builder
+@Getter
+@Setter
+@Entity
+@Table(name = "work_experience_info")
 public class WorkExperienceInfo {
-    private int id;
-    private int resume_id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "resume_id")
+    private Resume resume_id;
+
     private int years;
     private String company_name;
     private String position;
