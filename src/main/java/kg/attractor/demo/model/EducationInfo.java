@@ -1,22 +1,28 @@
 package kg.attractor.demo.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "education_info")
 public class EducationInfo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int resume_id;
+    @Column(length = 100)
     private String institution;
+    @Column(length = 100)
     private String program;
     private LocalDateTime start_date;
     private LocalDateTime end_date;
+    @Column(length = 100)
     private String degree;
 }
