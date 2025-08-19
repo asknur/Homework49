@@ -53,7 +53,7 @@ public class SecurityConfig {
                                 .requestMatchers(
                                         "/resumes/**",
                                         "/vacancies/**",
-                                        "/profile/**").fullyAuthenticated()
+                                        "/profile/**").permitAll()
                                 .requestMatchers(
                                         "/auth/register",
                                         "/auth/login",
