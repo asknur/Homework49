@@ -19,18 +19,23 @@ public class Vacancy {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private Category category_id;
+    private Category category;
 
     private float salary;
     private int exp_from;
     private int exp_to;
-    private boolean is_active;
+
+    @Column(name = "is_active")
+    private boolean isActive;
 
     @ManyToOne
     @JoinColumn(name = "author_id")
-    private User author_id;
+    private User author;
 
-    private LocalDateTime created_date;
-    private LocalDateTime updated_time;
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
+
+    @Column(name = "updated_time")
+    private LocalDateTime updatedTime;
 
 }
