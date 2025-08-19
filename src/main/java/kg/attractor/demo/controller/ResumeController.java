@@ -25,7 +25,7 @@ public class ResumeController {
 
     @GetMapping
     public String listResume(Model model) {
-        model.addAttribute("resumes", resumeService.findAll());
+        model.addAttribute("resumes", resumeService.getAllResumes());
         return "resume";
     }
 
@@ -59,7 +59,7 @@ public class ResumeController {
     }
 
     @PostMapping("/edit/{id}")
-    public String edit(@Valid ResumeDto resumeDto, BindingResult bindingResult, Model model) {
+    public String edit(@Valid ResumeDto resumeDto, BindingResult bindingResult, Model model, @PathVariable String id) {
         if (!bindingResult.hasErrors()) {
             resumeService.save(resumeDto);
             return "redirect:/";

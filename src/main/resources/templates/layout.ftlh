@@ -33,9 +33,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/resume">Резюме</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/companies">Компании</a>
-                    </li>
                 </ul>
 
                 <form class="d-flex me-3" action="/search" method="get">

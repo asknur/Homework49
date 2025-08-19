@@ -2,16 +2,22 @@ package kg.attractor.demo.service.impl;
 
 import jakarta.persistence.EntityNotFoundException;
 
+import kg.attractor.demo.dto.CategoryDto;
+import kg.attractor.demo.dto.UserDto;
 import kg.attractor.demo.dto.VacancyDto;
+import kg.attractor.demo.model.RespondedApplicant;
 import kg.attractor.demo.model.User;
 import kg.attractor.demo.model.Vacancy;
 import kg.attractor.demo.repository.VacancyRepository;
 import kg.attractor.demo.service.VacancyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -89,5 +95,15 @@ public class VacancyServiceImpl implements VacancyService {
     public List<User> getApplicantsByVacancy(int vacancyId) {
         log.info("Getting applicants for vacancy id: {}", vacancyId);
         return null;
+    }
+
+    @Override
+    public Sort getSortMethod(String sortValue) {
+        return VacancyService.super.getSortMethod(sortValue);
+    }
+
+    @Override
+    public List<VacancyDto> getAllSortedVacancies(Pageable pageable) {
+        return List.of();
     }
 }

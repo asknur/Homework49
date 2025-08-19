@@ -1,5 +1,4 @@
 <#import "layout.ftlh" as main>
-    <#macro resume>
 <@main.layout>
     <h2 class="mb-4">Мои резюме</h2>
     <div class="row">
@@ -13,6 +12,4 @@
             </div>
         </#list>
     </div>
-    <>
 </@main.layout>
-</#macro>

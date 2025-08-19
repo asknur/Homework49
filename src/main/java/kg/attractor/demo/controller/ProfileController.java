@@ -35,7 +35,7 @@ public class ProfileController {
 
     @GetMapping("/profile-resume")
     public String showResume(Model model) {
-        model.addAttribute("resumes", resumeService.findAll());
+        model.addAttribute("resumes", resumeService.getAllResumes());
         return "profile";
     }
 

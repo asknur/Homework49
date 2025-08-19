@@ -3,15 +3,17 @@ package kg.attractor.demo.controller;
 import jakarta.validation.Valid;
 import kg.attractor.demo.dto.VacancyDto;
 import kg.attractor.demo.model.Vacancy;
+import kg.attractor.demo.repository.VacancyRepository;
 import kg.attractor.demo.service.impl.VacancyServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,6 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class VacancyController {
     private final VacancyServiceImpl vacancyService;
+    private final VacancyRepository vacancyRepository;
 
     @GetMapping
     public String listVacancies(Model model) {
@@ -57,6 +60,15 @@ public class VacancyController {
         }
         model.addAttribute("vacancyDto", vacancyDto);
         return "vacancy-edit";
+    }
+
+    @GetMapping("sorted")
+    public Page<Vacancy> getSortedVacancies(
+            @RequestParam(name = "page", defaultValue = "0") int pageNumber,
+            @RequestParam(name= "size", defaultValue = "5") int pageSize){
+        var sort = Sort.by(Sort.Direction.DESC, "created_date");
+        var pageRequest = PageRequest.of(pageNumber, pageSize, sort);
+        return vacancyRepository.findAll(pageRequest);
 
     }
 }

@@ -54,7 +54,7 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
-    public List<Resume> findAll() {
+    public List<Resume> getAllResumes() {
         log.info("Getting all resumes");
         return resumeRepository.findAll();
     }
