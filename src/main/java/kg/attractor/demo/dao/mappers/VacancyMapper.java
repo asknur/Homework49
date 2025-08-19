@@ -18,7 +18,7 @@ public class VacancyMapper implements RowMapper<Vacancy> {
         v.setSalary(rs.getInt("salary"));
         v.setExp_from(rs.getInt("exp_from"));
         v.setExp_to(rs.getInt("exp_to"));
-        v.set_active(rs.getBoolean("is_active"));
+//        v.set_active(rs.getBoolean("is_active"));
 //        v.setAuthor_id(rs.getInt("author_id"));
         return v;
     }
