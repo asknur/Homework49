@@ -39,7 +39,7 @@ public class ResumeController {
 
     @GetMapping
     public ResponseEntity<List<Resume>> getAllResumes() {
-        return new ResponseEntity<>(resumeService.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(resumeService.getAllResumes(), HttpStatus.OK);
     }
 
     @GetMapping("/category/{categoryId}")

@@ -14,7 +14,7 @@ public interface ResumeService {
 
     void deleteById(int id);
 
-    List<Resume> findAll();
+    List<Resume> getAllResumes();
 
     List<Resume> findByCatId(int categoryId);
 

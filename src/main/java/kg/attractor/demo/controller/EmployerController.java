@@ -17,7 +17,7 @@ public class EmployerController {
 
     @GetMapping("/resumes")
     public String resumes(Model model) {
-        model.addAttribute("resumes", resumeService.findAll());
+        model.addAttribute("resumes", resumeService.getAllResumes());
         return "resume";
     }
 
