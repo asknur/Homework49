@@ -17,7 +17,7 @@ public interface VacancyService {
 
     List<Vacancy> findByTrue();
 
-    List<Vacancy> findCategoryIdAndTrue(int categoryId);
+    List<Vacancy> findCategoryIdAndIsActiveTrue(int categoryId);
 
     List<Vacancy> getRespondedVacanciesByUser(int userId);
 

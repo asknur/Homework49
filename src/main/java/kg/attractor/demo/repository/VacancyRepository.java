@@ -12,5 +12,5 @@ public interface VacancyRepository extends JpaRepository<Vacancy, Long> {
     List<Vacancy> findByCategoryId(Long categoryId);
     List<Vacancy> findByIsActiveTrue();
     List<Vacancy> findByCategoryIdAndIsActiveTrue(Long categoryId);
-    List<Vacancy> findRespondedVacanciesByUserId(Long userId);
+    List<Vacancy> findRespondedVacanciesByAuthor_Id(Long userId);
 }
