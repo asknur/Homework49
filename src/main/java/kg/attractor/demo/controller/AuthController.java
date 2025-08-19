@@ -19,18 +19,19 @@ public class AuthController {
 
     private final UserService userService;
 
-    @GetMapping("/register")
+
+    @GetMapping("login")
+    public String login() {
+        return "auth/login";
+    }
+
+    @GetMapping("register")
     public String register(Model model) {
         model.addAttribute("userDto", new UserDto());
         return "auth/register";
     }
 
-    @GetMapping("/login")
-    public String login(Model model) {
-        return "auth/login";
-    }
-
-    @PostMapping("/register")
+    @PostMapping("register")
     public String register(@Valid UserDto userDto, BindingResult bindingResult, Model model) {
         if (!bindingResult.hasErrors()) {
             userService.createUser(userDto);
