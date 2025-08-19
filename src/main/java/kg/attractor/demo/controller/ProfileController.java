@@ -6,6 +6,7 @@ import kg.attractor.demo.model.User;
 import kg.attractor.demo.service.ImageService;
 import kg.attractor.demo.service.UserService;
 import kg.attractor.demo.service.impl.ResumeServiceImpl;
+import kg.attractor.demo.service.impl.VacancyServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -23,11 +24,24 @@ import java.util.Locale;
 public class ProfileController {
     private final UserService userService;
     private final ResumeServiceImpl  resumeService;
+    private final VacancyServiceImpl vacancyService;
     private final ImageService imageService;
 
     @GetMapping
     public String showProfile(Model model) {
         model.addAttribute("users", userService.getUsers());
+        return "profile";
+    }
+
+    @GetMapping("/profile-resume")
+    public String showResume(Model model) {
+        model.addAttribute("resumes", resumeService.findAll());
+        return "profile";
+    }
+
+    @GetMapping("/profile-vacancy")
+    public String showVacancies(Model model) {
+        model.addAttribute("vacancies", vacancyService.getAllVacancies());
         return "profile";
     }
 
