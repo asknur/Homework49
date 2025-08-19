@@ -7,7 +7,7 @@
                 <div class="card p-3">
                     <h5>${vacancy.name}</h5>
                     <p>${vacancy.description}</p>
-                    <a href="/vacancies/${vacancy.id}" class="btn btn-outline-primary btn-sm">Подробнее</a>
+                    <a href="/vacancies/${vacancy.id}" class="btn btn-primary">Подробнее</a>
                 </div>
             </div>
         </#list>
