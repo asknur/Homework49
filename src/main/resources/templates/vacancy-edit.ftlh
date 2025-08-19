@@ -2,7 +2,7 @@
 <@main.layout>
     <h2 class="mb-4">Редактирование вакансии</h2>
     <#list vacancies as vacancy>
-    <form method="post" action="/vacancies/edit/${vacancy.id}">
+    <form method="post" action="/vacancy/edit/${vacancy.id}">
         <div class="mb-3">
             <label for="title" class="form-label">Название вакансии</label>
             <input type="text" id="title" name="title" class="form-control" value="${vacancy.name!}">

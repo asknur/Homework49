@@ -4,13 +4,14 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchConnectionDetails;
 
+import java.util.Collection;
 import java.util.List;
 
 @Getter
 @Setter
 @Builder
 @Entity
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Table(name = "users")
 public class User {
@@ -36,8 +37,13 @@ public class User {
 
     private Boolean enabled;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role_id;
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users", cascade = CascadeType.ALL)
+    private Collection<Role> roles;
+
+    public void addRole(Role role) {
+        this.roles.add(role);
+        role.getUsers().add(this);
+    }
+
 
 }

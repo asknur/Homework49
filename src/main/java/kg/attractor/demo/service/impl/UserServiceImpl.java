@@ -79,6 +79,7 @@ public class UserServiceImpl implements UserService {
         log.info("Creating user: {}", user);
         User newUser = new User();
         newUser.setName(user.getName());
+        newUser.setEmail(user.getEmail());
         newUser.setPassword(encoder.encode(user.getPassword()));
         return userRepository.save(newUser);
     }
@@ -87,6 +88,7 @@ public class UserServiceImpl implements UserService {
         log.info("Saving user: {}", userDto);
         User user = new User();
         user.setName(userDto.getName());
+        user.setEmail(userDto.getEmail());
         user.setPassword(encoder.encode(userDto.getPassword()));
         return userRepository.save(user);
     }

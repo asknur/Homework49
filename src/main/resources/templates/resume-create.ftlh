@@ -4,7 +4,7 @@
         <h2 class="mb-4">Создание резюме</h2>
 
         <div class="card p-4 shadow-sm">
-            <form method="post" action="/resumes/create">
+            <form method="post" action="/resume/create">
                 <div class="mb-4">
                     <label for="name" class="form-label fw-bold">Название резюме</label>
                     <input type="text" id="name" name="name" class="form-control form-control-lg"

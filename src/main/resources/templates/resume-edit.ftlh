@@ -2,7 +2,7 @@
 <@main.layout>
     <h2 class="mb-4">Редактирование резюме</h2>
     <#list resumes as resume>
-    <form method="post" action="/resumes/edit/${resume.id}">
+    <form method="post" action="/resume/edit/${resume.id}">
         <div class="mb-3">
             <label for="title" class="form-label">Название</label>
             <input type="text" id="title" name="title" class="form-control" value="${resume.name!}">

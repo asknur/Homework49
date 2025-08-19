@@ -26,7 +26,7 @@ public class VacancyServiceImpl implements VacancyService {
         Vacancy vacancy = new Vacancy();
         vacancy.setName(vacancyDto.getName());
         vacancy.setDescription(vacancyDto.getDescription());
-        vacancy.setCreated_date(vacancyDto.getCreated_date());
+        vacancy.setCreatedDate(vacancyDto.getCreated_date());
         vacancy.setSalary(vacancyDto.getSalary());
         return vacancyRepository.save(vacancy);
     }
@@ -37,7 +37,7 @@ public class VacancyServiceImpl implements VacancyService {
         Vacancy vacancy = new Vacancy();
         vacancy.setName(vacancyDto.getName());
         vacancy.setDescription(vacancyDto.getDescription());
-        vacancy.setCreated_date(vacancyDto.getCreated_date());
+        vacancy.setCreatedDate(vacancyDto.getCreated_date());
         vacancy.setSalary(vacancyDto.getSalary());
         return vacancyRepository.save(vacancy);
     }
@@ -62,7 +62,7 @@ public class VacancyServiceImpl implements VacancyService {
     }
 
     @Override
-    public List<Vacancy> findCategoryIdAndTrue(int categoryId) {
+    public List<Vacancy> findCategoryIdAndIsActiveTrue(int categoryId) {
         log.info("Finding Vacancy by categoryId: {}", categoryId);
         return vacancyRepository.findByCategoryIdAndIsActiveTrue((long) categoryId);
     }
@@ -70,7 +70,7 @@ public class VacancyServiceImpl implements VacancyService {
     @Override
     public List<Vacancy> getRespondedVacanciesByUser(int userId) {
         log.info("Getting responded vacancies for user id: {}", userId);
-        return vacancyRepository.findRespondedVacanciesByUserId((long) userId);
+        return vacancyRepository.findRespondedVacanciesByAuthor_Id((long) userId);
     }
 
     @Override

@@ -4,7 +4,7 @@
         <h2 class="mb-4">Создание вакансии</h2>
 
         <div class="card p-4 shadow-sm">
-            <form method="post" action="/vacancies/create">
+            <form method="post" action="/vacancy/create">
                 <div class="mb-4">
                     <label for="name" class="form-label fw-bold">Название вакансии</label>
                     <input type="text" id="name" name="name" class="form-control form-control-lg"
