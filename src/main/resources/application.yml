@@ -29,7 +29,7 @@
 
 
  server:
-   port: 8080
+   port: 8081
 
 
  logging:
@@ -37,9 +37,13 @@
      root: info
      org:
        springframework:
-         security: debug
+         security: error
+       hibernate:
+         stat: error
+         type: error
+     sql: error
+     web: error
    pattern:
      file: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
    file:
      path: logs
-     

@@ -48,7 +48,7 @@ public class ProfileController {
     @GetMapping("/edit")
     public String editProfileForm(Model model, Principal principal) {
         UserDto userDto = (UserDto) userService.getByEmail(principal.getName());
-        model.addAttribute("user", userDto);
+        model.addAttribute("users",  userService.getUsers());
         return "profile-edit";
     }
 
@@ -56,6 +56,7 @@ public class ProfileController {
     public String updateProfile(@Valid UserDto userDto, BindingResult bindingResult, Model model) {
         if (!bindingResult.hasErrors()) {
             userService.save(userDto);
+            model.addAttribute("users", userDto);
             return "redirect:/";
         }
         model.addAttribute("usersDto", userDto);
@@ -72,6 +73,11 @@ public class ProfileController {
         }
         userService.save(userDto);
         return "redirect:/profile";
+    }
 
+    @GetMapping("/pr")
+    public String profile(UserDto userDto, Model model) {
+        model.addAttribute("users", userService.getUsers());
+        return "profile";
     }
 }

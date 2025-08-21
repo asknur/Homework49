@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -84,6 +85,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(newUser);
     }
 
+    @Override
     public User save(UserDto userDto) {
         log.info("Saving user: {}", userDto);
         User user = new User();

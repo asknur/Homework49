@@ -30,6 +30,12 @@ public class VacancyController {
         return "vacancy";
     }
 
+    @GetMapping("{vacancyId}")
+    public String getVacancy(@PathVariable int vacancyId, Model model) {
+        model.addAttribute("resumes", vacancyService.getById(vacancyId));
+        return "vacancy";
+    }
+
     @GetMapping("/create")
     public String createVacancy(Model model) {
         model.addAttribute("vacancies", new Vacancy());
@@ -63,12 +69,9 @@ public class VacancyController {
     }
 
     @GetMapping("sorted")
-    public Page<Vacancy> getSortedVacancies(
-            @RequestParam(name = "page", defaultValue = "0") int pageNumber,
-            @RequestParam(name= "size", defaultValue = "5") int pageSize){
-        var sort = Sort.by(Sort.Direction.DESC, "created_date");
-        var pageRequest = PageRequest.of(pageNumber, pageSize, sort);
-        return vacancyRepository.findAll(pageRequest);
-
+    public String getSortedVacancies(Pageable pageable, Model model) {
+        model.addAttribute("vacancies", vacancyService.getAllSortedAndPagedVacancies(pageable));
+        return "vacancy";
     }
+
 }

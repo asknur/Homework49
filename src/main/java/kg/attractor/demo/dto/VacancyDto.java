@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 
 public class VacancyDto {
 
+    private Long id;
     @NotBlank(message = "Название обязательно")
     @Size(min = 5, max = 20)
     private String name;

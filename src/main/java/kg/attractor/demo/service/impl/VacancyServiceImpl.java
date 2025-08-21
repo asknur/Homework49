@@ -2,22 +2,18 @@ package kg.attractor.demo.service.impl;
 
 import jakarta.persistence.EntityNotFoundException;
 
-import kg.attractor.demo.dto.CategoryDto;
-import kg.attractor.demo.dto.UserDto;
 import kg.attractor.demo.dto.VacancyDto;
-import kg.attractor.demo.model.RespondedApplicant;
 import kg.attractor.demo.model.User;
 import kg.attractor.demo.model.Vacancy;
 import kg.attractor.demo.repository.VacancyRepository;
 import kg.attractor.demo.service.VacancyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -98,12 +94,22 @@ public class VacancyServiceImpl implements VacancyService {
     }
 
     @Override
-    public Sort getSortMethod(String sortValue) {
-        return VacancyService.super.getSortMethod(sortValue);
-    }
-
-    @Override
-    public List<VacancyDto> getAllSortedVacancies(Pageable pageable) {
-        return List.of();
+    public List<VacancyDto> getAllSortedAndPagedVacancies(Pageable pageable){
+        Page<Vacancy> vacancies = vacancyRepository.findAll(pageable);
+        return vacancies.getContent().stream()
+                .map(e -> {
+                    return VacancyDto.builder()
+                            .id(e.getId())
+                            .name(e.getName())
+                            .description(e.getDescription())
+                            .salary(e.getSalary())
+                            .exp_from(e.getExp_from())
+                            .exp_to(e.getExp_to())
+                            .is_active(e.isActive())
+                            .created_date(e.getCreatedDate())
+                            .updated_time(e.getUpdatedTime())
+                            .build();
+                })
+                .toList();
     }
 }
