@@ -3,6 +3,7 @@ package kg.attractor.demo.service;
 import kg.attractor.demo.dto.VacancyDto;
 import kg.attractor.demo.model.User;
 import kg.attractor.demo.model.Vacancy;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
@@ -29,13 +30,13 @@ public interface VacancyService {
 
     List<User> getApplicantsByVacancy(int vacancyId);
 
-    default Sort getSortMethod(String sortValue) {
+    List<VacancyDto> getAllSortedAndPagedVacancies(Pageable pageable);
+
+    default Sort getSortedMethod(String sortValue) {
         return switch (sortValue) {
-            case "date" -> Sort.by("release_date");
-            case "responds" -> Sort.by("respondedAt");
+            case "created_date" -> Sort.by("created_date");
+            case "responded" -> Sort.by("responded");
             default -> Sort.by("name");
         };
     }
-
-    List<VacancyDto> getAllSortedVacancies(Pageable pageable);
 }
