@@ -29,7 +29,7 @@ public class ResumeController {
         return "resume";
     }
 
-    @GetMapping("resumeId")
+    @GetMapping("{resumeId}")
     public String getResume(@PathVariable int resumeId, Model model) {
         model.addAttribute("resumes", resumeService.getById(resumeId));
         return "resume";
@@ -67,6 +67,8 @@ public class ResumeController {
         model.addAttribute("resumeDto",  resumeDto);
         return "resume-edit";
     }
+
+
 
 
 
