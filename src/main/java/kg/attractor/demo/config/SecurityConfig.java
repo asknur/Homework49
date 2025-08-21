@@ -26,18 +26,17 @@ public class SecurityConfig {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        String userQuery = "SELECT email, password, enabled FROM users WHERE email = ?";
+        String userQuery = "select EMAIL, PASSWORD, ENABLED from USERS\n" +
+                "where EMAIL = ?;";
 
-        String roleQuery = "select EMAIL, ROLE_NAME " +
-                "from users ut, " +
-                "ROLES r " +
-                "where ut.EMAIL = ? and ut.ROLE_ID = r.ID;";
+        String roleQuery = "select EMAIL, ROLE_NAME from USERS u, ROLES r\n" +
+                "where u.EMAIL = ?\n" +
+                "and u. ROLE_ID = r.ID;";
 
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .usersByUsernameQuery(userQuery)
-                .authoritiesByUsernameQuery(roleQuery)
-                .passwordEncoder(passwordEncoder);
+                .authoritiesByUsernameQuery(roleQuery);
     }
 
     @Bean
@@ -46,22 +45,28 @@ public class SecurityConfig {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .httpBasic(Customizer.withDefaults())
-                .formLogin(AbstractHttpConfigurer::disable)
-                .logout(AbstractHttpConfigurer::disable)
+                .formLogin(login -> login
+                        .loginPage("/auth/login")
+                        .loginProcessingUrl("/auth/login")
+                        .defaultSuccessUrl("/")
+                        .permitAll())
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .permitAll())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
                                 .requestMatchers(
-                                        "/resumes/**",
-                                        "/vacancies/**",
-                                        "/profile/**").permitAll()
+                                        "/resume/**",
+                                        "/vacancy/**",
+                                        "/profile/**").fullyAuthenticated()
                                 .requestMatchers(
                                         "/auth/register",
-                                        "/auth/login",
-                                        "/resumes",
-                                        "/resumes/category/**",
-                                        "/vacancies",
-                                        "/vacancies/category/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/api/register").permitAll()
+                                        "/resume",
+                                        "/resume/category/**",
+                                        "/vacancy",
+                                        "/vacancy/category/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                                 .anyRequest().permitAll()
                 );
         return http.build();
