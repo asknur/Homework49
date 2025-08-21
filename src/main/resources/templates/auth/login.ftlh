@@ -6,7 +6,7 @@
                 <h2 class="fw-bold mb-4 text-center">Вход в аккаунт</h2>
                 <p class="text-muted text-center mb-4">Введите данные, чтобы продолжить</p>
 
-                <form id="login-form" action="/login" method="post">
+                <form id="login-form" action="/auth/login" method="post">
                     <!-- Email input -->
                     <div class="form-outline mb-4">
                         <label class="form-label fw-semibold" for="email">Email</label>
@@ -42,7 +42,7 @@
                     </div>
 
                     <!-- Register button -->
-                    <a href="/register" class="btn btn-outline-secondary btn-lg w-100 rounded-3">
+                    <a href="/auth/register" class="btn btn-outline-secondary btn-lg w-100 rounded-3">
                         Создать аккаунт
                     </a>
                 </form>

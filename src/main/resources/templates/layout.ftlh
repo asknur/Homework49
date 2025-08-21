@@ -43,16 +43,24 @@
                 <#assign known = SPRING_SECURITY_CONTEXT?? >
                 <#if known>
                     <#assign user = SPRING_SECURITY_CONTEXT.authentication.principal
-                    name = user.getUsername() >
+                    name = user.getUsername()
+                    >
                     <#if user??>
-                        <a href="/profile/${name}" class="text-light me-3">
+                        <a href="/profile/${name}" class="text-light m-2 m-sm-0">
                             Hello, ${name}
+
                             <#list user.authorities as auth>
-                                <span class="badge bg-danger ms-1">${auth}</span>
+                                <span class="text-danger">${auth}</span>
+                                <#if auth?has_next>
+                                    /
+                                </#if>
                             </#list>
                         </a>
-                        <form action="/logout" method="post" class="d-inline">
-                            <button type="submit" class="btn btn-outline-info">Выйти</button>
+                        <form action="/logout" method="post">
+                            <button type="submit" class="btn btn-outline-info m-2"
+                                    id="logout">
+                                Выйти
+                            </button>
                         </form>
                     </#if>
                 <#else>

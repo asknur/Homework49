@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh; background: #f9fafb;">
         <div class="card shadow-lg rounded-4 p-4" style="width: 450px; border: none;">
             <h2 class="text-center mb-4 fw-bold">Регистрация</h2>
-            <form method="post" action="/register" enctype="multipart/form-data">
+            <form method="post" action="/auth/register" enctype="multipart/form-data">
 
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
