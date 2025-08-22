@@ -2,7 +2,8 @@ package kg.attractor.demo.controller;
 
 import jakarta.validation.Valid;
 import kg.attractor.demo.dto.ResumeDto;
-import kg.attractor.demo.model.Resume;
+import kg.attractor.demo.model.User;
+import kg.attractor.demo.service.UserService;
 import kg.attractor.demo.service.impl.ResumeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -13,8 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -23,6 +25,7 @@ import java.util.List;
 
 public class ResumeController {
     private final ResumeServiceImpl resumeService;
+    private final UserService userService;
 
     @GetMapping
     public String listResume(Model model) {
@@ -74,9 +77,5 @@ public class ResumeController {
         model.addAttribute("resumes", resumeService.getAllSortedAndPagedVacancies(pageable));
         return "resume";
     }
-
-
-
-
 
 }

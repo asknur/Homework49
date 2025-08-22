@@ -2,8 +2,10 @@ package kg.attractor.demo.controller;
 
 import jakarta.validation.Valid;
 import kg.attractor.demo.dto.VacancyDto;
+import kg.attractor.demo.model.User;
 import kg.attractor.demo.model.Vacancy;
 import kg.attractor.demo.repository.VacancyRepository;
+import kg.attractor.demo.service.UserService;
 import kg.attractor.demo.service.impl.VacancyServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -23,6 +26,7 @@ import java.util.List;
 public class VacancyController {
     private final VacancyServiceImpl vacancyService;
     private final VacancyRepository vacancyRepository;
+    private final UserService userService;
 
     @GetMapping
     public String listVacancies(Model model) {

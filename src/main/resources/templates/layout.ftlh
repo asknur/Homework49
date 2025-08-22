@@ -34,7 +34,6 @@
                         <a class="nav-link" href="/resume">Резюме</a>
                     </li>
                 </ul>
-
                 <form class="d-flex me-3" action="/search" method="get">
                     <input class="form-control me-2" type="search" name="q" placeholder="Поиск вакансии..." aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Поиск</button>

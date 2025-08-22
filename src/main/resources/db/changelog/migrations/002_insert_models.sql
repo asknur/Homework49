@@ -65,21 +65,21 @@ VALUES (2, 'Frontend Developer', 1, 1100.00, true, CURRENT_TIMESTAMP, CURRENT_TI
        (16, 'Content Manager', 1, 700.00, false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT INTO vacancies (name, description, category_id, salary, exp_from, exp_to, is_active, author_id, created_date, updated_time)
-VALUES ('Backend Developer', 'Spring Boot, PostgreSQL', 1, 1500.00, 2, 5, true, 17, CURRENT_TIMESTAMP,CURRENT_TIMESTAMP),
-       ('HR Specialist', 'Подбор персонала, интервью', 2, 800.00, 1, 3, true, 18, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-       ('Python Developer', 'Django, PostgreSQL', 1, 1500.00, 2, 5, true, 19, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-       ('Swift Developer', 'IOS', 2, 800.00, 1, 3, true, 20, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-       ('Frontend Developer', 'React, JavaScript, CSS', 1, 1300.00, 1, 4, true, 21, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-       ('QA Engineer', 'Тестирование ПО, автоматизация', 3, 900.00, 1, 3, true, 22, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-       ('Project Manager', 'Управление проектами, Agile', 1, 1600.00, 3, 6, true, 23, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-       ('DevOps Engineer', 'CI/CD, Docker, Kubernetes', 1, 1700.00, 2, 5, true, 24, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-       ('Mobile Developer', 'Android, Kotlin, Java', 1, 1400.00, 2, 4, true, 25, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-       ('UI/UX Designer', 'Прототипирование, Figma', 3, 1000.00, 1, 3, true, 26, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-       ('Data Analyst', 'SQL, Excel, Power BI', 1, 1100.00, 1, 3, true, 27, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-       ('System Administrator', 'Сервера, сети, безопасность', 1, 1200.00, 3, 5, true, 28, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-       ('Technical Writer', 'Документация, инструкции', 1, 800.00, 0, 2, true, 29, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-       ('Product Owner', 'Управление продуктом, Scrum', 1, 1550.00, 3, 6, true, 30, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-       ('Support Engineer', 'Техническая поддержка', 1, 900.00, 1, 3, true, 31, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+VALUES ('Bank KICB', 'Spring Boot, PostgreSQL', 1, 1500.00, 2, 5, true, 17, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+       ('HR Solutions', 'Подбор персонала, интервью', 2, 800.00, 1, 3, true, 18, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+       ('PyWorks', 'Django, PostgreSQL', 1, 1500.00, 2, 5, true, 19, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+       ('SwiftLabs', 'IOS', 2, 800.00, 1, 3, true, 20, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+       ('FrontEnd Masters', 'React, JavaScript, CSS', 1, 1300.00, 1, 4, true, 21, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+       ('MBANK', 'Тестирование ПО, автоматизация', 3, 900.00, 1, 3, true, 22, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+       ('Bank Companion', 'Project Manager, Управление проектами, Agile', 1, 1600.00, 3, 6, true, 23, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+       ('DevOps Hub', 'CI/CD, Docker, Kubernetes', 1, 1700.00, 2, 5, true, 24, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+       ('MobileSoft', 'Android, Kotlin, Java', 1, 1400.00, 2, 4, true, 25, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+       ('UX Studio', 'Прототипирование, Figma', 3, 1000.00, 1, 3, true, 26, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+       ('Data Insights', 'SQL, Excel, Power BI', 1, 1100.00, 1, 3, true, 27, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+       ('SysAdmin Co', 'Сервера, сети, безопасность', 1, 1200.00, 3, 5, true, 28, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+       ('TechDocs', 'Документация, инструкции', 1, 800.00, 0, 2, true, 29, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+       ('Bank Optima', 'Управление продуктом, Scrum', 1, 1550.00, 3, 6, true, 30, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+       ('Support Solutions', 'Техническая поддержка', 1, 900.00, 1, 3, true, 31, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT INTO contacts_info (type_id, resume_id, contact_value)
 VALUES  (1, 1, 'ulan@ex.com'),
