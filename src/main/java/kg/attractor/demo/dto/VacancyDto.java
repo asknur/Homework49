@@ -25,17 +25,20 @@ public class VacancyDto {
     private String description;
 
     @NotNull(message = "Название обязательно")
-    @Size(min = 1, max = 20)
+    @Min(1)
+    @Max(10)
     @Positive
     private float salary;
 
     @NotNull(message = "Время обязательно")
-    @Size(min = 1, max = 20)
+    @Min(1)
+    @Max(10)
     @Positive
     private int exp_from;
 
     @NotNull(message = "Время обязательно")
-    @Size(min = 1, max = 20)
+    @Min(1)
+    @Max(10)
     @Positive
     private int exp_to;
 
@@ -46,4 +49,6 @@ public class VacancyDto {
 
     @NotNull(message = "Дата обязательно")
     private LocalDateTime updated_time;
+
+    private Long respondedCount;
 }
