@@ -5,6 +5,7 @@ import kg.attractor.demo.dto.ResumeDto;
 import kg.attractor.demo.model.Resume;
 import kg.attractor.demo.service.impl.ResumeServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -66,6 +67,12 @@ public class ResumeController {
         }
         model.addAttribute("resumeDto",  resumeDto);
         return "resume-edit";
+    }
+
+    @GetMapping("sorted")
+    public String getSortedResumes(Pageable pageable, Model model) {
+        model.addAttribute("resumes", resumeService.getAllSortedAndPagedVacancies(pageable));
+        return "resume";
     }
 
 
