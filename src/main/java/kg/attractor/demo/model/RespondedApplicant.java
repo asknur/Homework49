@@ -18,7 +18,7 @@ public class RespondedApplicant {
 
     @ManyToOne
     @JoinColumn(name = "vacancy_id")
-    private Vacancy vacancy_id;
+    private Vacancy vacancy;
 
     private boolean confirmation;
 

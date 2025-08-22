@@ -4,15 +4,18 @@
         <option selected>Сортировка</option>
         <option value="/vacancy/sorted?sort=name">Сортировка по имени</option>
         <option value="/vacancy/sorted?sort=createdDate">Сортировка по дате публикации</option>
-        <option value="/vacancy/sorted?sort=responded">Сортировка по количествну откликов</option>
+        <option value="/vacancy/sorted?sort=respondedCount">Сортировка по количествну откликов</option>
     </select>
+
     <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        <li class="page-item"><a class="page-link" href="/vacancy/sorted?page=0&size=3">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="/vacancy/sorted?page=1&size=3">1</a></li>
+        <li class="page-item"><a class="page-link" href="/vacancy/sorted?page=2&size=3">2</a></li>
+        <li class="page-item"><a class="page-link" href="/vacancy/sorted?page=3&size=3">3</a></li>
+        <li class="page-item"><a class="page-link" href="/vacancy/sorted?page=4&size=3">4</a></li>
+        <li class="page-item"><a class="page-link" href="/vacancy/sorted?page=5&size=3">Next</a></li>
     </ul>
+
     <h2 class="mb-4">Вакансии</h2>
     <div class="row">
         <#list vacancies as vacancy>

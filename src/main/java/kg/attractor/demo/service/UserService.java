@@ -18,7 +18,7 @@ public interface UserService {
 
     List<User> findByName(String username);
 
-    List<User> getByEmail(String email);
+    public User getByEmail(String email);
 
     User createUser(UserDto user);
 

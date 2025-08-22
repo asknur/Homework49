@@ -46,7 +46,7 @@
                     name = user.getUsername()
                     >
                     <#if user??>
-                        <a href="/profile/${name}" class="text-light m-2 m-sm-0">
+                        <a href="/profile${name}" class="text-light m-2 m-sm-0">
                             Hello, ${name}
 
                             <#list user.authorities as auth>

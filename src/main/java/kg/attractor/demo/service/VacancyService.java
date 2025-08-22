@@ -16,6 +16,8 @@ public interface VacancyService {
 
     Vacancy getById(int id);
 
+    List<VacancyDto> getByUser(long id);
+
     void deleteById(int id);
 
     List<Vacancy> findByTrue();
@@ -28,7 +30,7 @@ public interface VacancyService {
 
     List<Vacancy> getVacanciesByCategory(int categoryId);
 
-    List<User> getApplicantsByVacancy(int vacancyId);
+    List<Vacancy> getVacanciesByAuthor(long vacancyId);
 
     List<VacancyDto> getAllSortedAndPagedVacancies(Pageable pageable);
 

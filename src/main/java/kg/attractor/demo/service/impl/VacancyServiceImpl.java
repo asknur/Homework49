@@ -3,7 +3,7 @@ package kg.attractor.demo.service.impl;
 import jakarta.persistence.EntityNotFoundException;
 
 import kg.attractor.demo.dto.VacancyDto;
-import kg.attractor.demo.model.User;
+import kg.attractor.demo.interfaces.VacancyWithRespondedCount;
 import kg.attractor.demo.model.Vacancy;
 import kg.attractor.demo.repository.VacancyRepository;
 import kg.attractor.demo.service.VacancyService;
@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -52,6 +53,30 @@ public class VacancyServiceImpl implements VacancyService {
     }
 
     @Override
+    public List<VacancyDto> getByUser(long id) {
+        log.info("Getting vacancy by user: {}", id);
+        List<Vacancy> vacancies = vacancyRepository.findByAuthor_Id(id);
+        if (vacancies == null) {
+            return Collections.emptyList();
+        }
+        return vacancies.stream()
+                .map(e -> {
+                    return VacancyDto.builder()
+                            .id(e.getId())
+                            .name(e.getName())
+                            .description(e.getDescription())
+                            .salary(e.getSalary())
+                            .exp_from(e.getExp_from())
+                            .exp_to(e.getExp_to())
+                            .is_active(e.isActive())
+                            .created_date(e.getCreatedDate())
+                            .updated_time(e.getUpdatedTime())
+                            .build();
+                })
+                .toList();
+    }
+
+    @Override
     public void deleteById(int id) {
         log.info("Deleting vacancy by id: {}", id);
         vacancyRepository.deleteById((long) id);
@@ -88,28 +113,51 @@ public class VacancyServiceImpl implements VacancyService {
     }
 
     @Override
-    public List<User> getApplicantsByVacancy(int vacancyId) {
+    public List<Vacancy> getVacanciesByAuthor(long vacancyId) {
         log.info("Getting applicants for vacancy id: {}", vacancyId);
-        return null;
+        return vacancyRepository.findVacanciesByAuthor_Id((long) vacancyId);
     }
 
     @Override
     public List<VacancyDto> getAllSortedAndPagedVacancies(Pageable pageable){
-        Page<Vacancy> vacancies = vacancyRepository.findAll(pageable);
-        return vacancies.getContent().stream()
-                .map(e -> {
-                    return VacancyDto.builder()
-                            .id(e.getId())
-                            .name(e.getName())
-                            .description(e.getDescription())
-                            .salary(e.getSalary())
-                            .exp_from(e.getExp_from())
-                            .exp_to(e.getExp_to())
-                            .is_active(e.isActive())
-                            .created_date(e.getCreatedDate())
-                            .updated_time(e.getUpdatedTime())
-                            .build();
-                })
-                .toList();
+        boolean sortByResponded =
+                pageable.getSort().stream().anyMatch(o -> o.getProperty().equals("respondedCount"));
+        if (sortByResponded) {
+            Page<VacancyWithRespondedCount> page = vacancyRepository.findAllWithRespondedCount(pageable);
+            return page.getContent().stream()
+                    .map(p -> {
+                        Vacancy e = p.getVacancy();
+                        return VacancyDto.builder()
+                                .id(e.getId())
+                                .name(e.getName())
+                                .description(e.getDescription())
+                                .salary(e.getSalary())
+                                .exp_from(e.getExp_from())
+                                .exp_to(e.getExp_to())
+                                .is_active(e.isActive())
+                                .created_date(e.getCreatedDate())
+                                .updated_time(e.getUpdatedTime())
+                                .respondedCount(p.getRespondedCount())
+                                .build();
+                    })
+                    .toList();
+        } else {
+            Page<Vacancy> vacancies = vacancyRepository.findAll(pageable);
+            return vacancies.getContent().stream()
+                    .map(e -> {
+                        return VacancyDto.builder()
+                                .id(e.getId())
+                                .name(e.getName())
+                                .description(e.getDescription())
+                                .salary(e.getSalary())
+                                .exp_from(e.getExp_from())
+                                .exp_to(e.getExp_to())
+                                .is_active(e.isActive())
+                                .created_date(e.getCreatedDate())
+                                .updated_time(e.getUpdatedTime())
+                                .build();
+                    })
+                    .toList();
+        }
     }
 }

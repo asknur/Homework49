@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 
 public class ResumeDto {
+
+    private Long id;
     @NotBlank(message = "Имя обязательно")
     @Size(min = 2,  max = 20)
     private String name;

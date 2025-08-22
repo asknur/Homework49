@@ -2,11 +2,16 @@ package kg.attractor.demo.service.impl;
 
 
 import kg.attractor.demo.dto.ResumeDto;
+import kg.attractor.demo.dto.VacancyDto;
+import kg.attractor.demo.interfaces.VacancyWithRespondedCount;
 import kg.attractor.demo.model.Resume;
+import kg.attractor.demo.model.Vacancy;
 import kg.attractor.demo.repository.ResumeRepository;
 import kg.attractor.demo.service.ResumeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -76,5 +81,23 @@ public class ResumeServiceImpl implements ResumeService {
         log.info("Getting resumes by applicant id: {}", applicantId);
         return resumeRepository.findByApplicantId((long)applicantId);
     }
+
+    @Override
+    public List<ResumeDto> getAllSortedAndPagedVacancies(Pageable pageable) {
+        Page<Resume> vacancies = resumeRepository.findAll(pageable);
+        return vacancies.getContent().stream()
+                .map(e -> {
+                    return ResumeDto.builder()
+                            .id(e.getId())
+                            .name(e.getName())
+                            .salary(e.getSalary())
+                            .created_date(e.getCreatedDate())
+                            .is_active(e.isActive())
+                            .build();
+                })
+                .toList();
+    }
+
+
 
 }
