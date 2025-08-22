@@ -19,7 +19,7 @@ import java.util.Optional;
 @Slf4j
 public class UserServiceImpl implements UserService {
 
-//    private final UserDao userDao;
+    //    private final UserDao userDao;
     private final UserRepository userRepository;
     private final PasswordEncoder encoder;
 
@@ -68,12 +68,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getByEmail(String email) {
+    public User getByEmail(String email) {
         log.info("Finding user by email: {}", email);
         return userRepository.findByEmail(email)
-                .map(List::of)
-                .orElse(List.of());
+                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
     }
+
 
     @Override
     public User createUser(UserDto user) {
