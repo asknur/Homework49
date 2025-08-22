@@ -3,11 +3,12 @@ package kg.attractor.demo.service;
 import jakarta.validation.Valid;
 import kg.attractor.demo.dto.UserDto;
 import kg.attractor.demo.model.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 
 import java.util.List;
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
     void register(UserDto userDto);
 
     String login(@Valid UserDto user);

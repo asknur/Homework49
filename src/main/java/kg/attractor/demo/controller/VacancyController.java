@@ -36,7 +36,7 @@ public class VacancyController {
 
     @GetMapping("{vacancyId}")
     public String getVacancy(@PathVariable int vacancyId, Model model) {
-        model.addAttribute("resumes", vacancyService.getById(vacancyId));
+        model.addAttribute("vacancies", vacancyService.getById(vacancyId));
         return "vacancy";
     }
 

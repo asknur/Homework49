@@ -1,10 +1,10 @@
 <#import "layout.ftlh" as main>
 <@main.layout>
-    <select class="form-select" aria-label="Default select example" onchange="window.location=this.value">
+    <select class="form-select mb-3" aria-label="Default select example" onchange="window.location=this.value">
         <option selected>Сортировка</option>
         <option value="/vacancy/sorted?sort=name">Сортировка по имени</option>
         <option value="/vacancy/sorted?sort=createdDate">Сортировка по дате публикации</option>
-        <option value="/vacancy/sorted?sort=respondedCount">Сортировка по количествну откликов</option>
+        <option value="/vacancy/sorted?sort=respondedCount">Сортировка по количеству откликов</option>
     </select>
 
     <ul class="pagination">
@@ -23,7 +23,17 @@
                 <div class="card p-3">
                     <h5>${vacancy.name}</h5>
                     <p>${vacancy.description}</p>
-                    <a href="/vacancies/${vacancy.id}" class="btn btn-primary">Подробнее</a>
+                    <p>
+                        Зарплата: $${vacancy.salary?string["#,##0.00"]} <br>
+                        Статус:
+                        <#if vacancy.active?? && vacancy.active>
+                            <span class="badge bg-success">Активная</span>
+                        <#else>
+                            <span class="badge bg-secondary">Неактивная</span>
+                        </#if> <br>
+                        Дата публикации: ${vacancy.createdDate} <br>
+                    </p>
+                    <a href="/vacancy/${vacancy.id}" class="btn btn-primary">Подробнее</a>
                 </div>
             </div>
         </#list>

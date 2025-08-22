@@ -41,11 +41,17 @@
 
                 <#assign known = SPRING_SECURITY_CONTEXT?? >
                 <#if known>
+                    <#if _csrf??>
+                        <input
+                                type="hidden"
+                                name="${(_csrf.parameterName)!'csrf-param-name'}"
+                                value="${(_csrf.token)!'csrf-token'}"/>
+                    </#if>
                     <#assign user = SPRING_SECURITY_CONTEXT.authentication.principal
                     name = user.getUsername()
                     >
                     <#if user??>
-                        <a href="/profile${name}" class="text-light m-2 m-sm-0">
+                        <a href="/profile ${name}" class="text-light m-2 m-sm-0">
                             Hello, ${name}
 
                             <#list user.authorities as auth>
@@ -55,9 +61,12 @@
                                 </#if>
                             </#list>
                         </a>
+
                         <form action="/logout" method="post">
-                            <button type="submit" class="btn btn-outline-info m-2"
-                                    id="logout">
+                            <#if _csrf??>
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            </#if>
+                            <button type="submit" class="btn btn-outline-info m-2" id="logout">
                                 Выйти
                             </button>
                         </form>
