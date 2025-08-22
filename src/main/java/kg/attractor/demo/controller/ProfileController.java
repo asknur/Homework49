@@ -1,8 +1,11 @@
+
 package kg.attractor.demo.controller;
 
 import jakarta.validation.Valid;
 import kg.attractor.demo.dto.UserDto;
+import kg.attractor.demo.dto.VacancyDto;
 import kg.attractor.demo.model.User;
+import kg.attractor.demo.model.Vacancy;
 import kg.attractor.demo.service.ImageService;
 import kg.attractor.demo.service.UserService;
 import kg.attractor.demo.service.impl.ResumeServiceImpl;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 
 @Controller
@@ -28,8 +33,10 @@ public class ProfileController {
     private final ImageService imageService;
 
     @GetMapping
-    public String showProfile(Model model) {
-        model.addAttribute("users", userService.getUsers());
+    public String showProfile(Model model, Principal principal) {
+        String email = principal.getName();
+        User user = userService.getByEmail(email);
+        model.addAttribute("user", user);
         return "profile";
     }
 
@@ -40,15 +47,16 @@ public class ProfileController {
     }
 
     @GetMapping("/profile-vacancy")
-    public String showVacancies(Model model) {
+    public String showVacancies(int id ,Model model) {
         model.addAttribute("vacancies", vacancyService.getAllVacancies());
         return "profile";
     }
 
     @GetMapping("/edit")
     public String editProfileForm(Model model, Principal principal) {
-        UserDto userDto = (UserDto) userService.getByEmail(principal.getName());
-        model.addAttribute("users",  userService.getUsers());
+        String email = principal.getName();
+        User user = userService.getByEmail(email);
+        model.addAttribute("user", user);
         return "profile-edit";
     }
 
@@ -75,9 +83,4 @@ public class ProfileController {
         return "redirect:/profile";
     }
 
-    @GetMapping("/pr")
-    public String profile(UserDto userDto, Model model) {
-        model.addAttribute("users", userService.getUsers());
-        return "profile";
-    }
 }
