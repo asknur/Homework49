@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -37,5 +39,8 @@ public class Vacancy {
 
     @Column(name = "updated_time")
     private LocalDateTime updatedTime;
+
+    @OneToMany(mappedBy = "vacancy")
+    private List<RespondedApplicant> responses = new ArrayList<>();
 
 }
