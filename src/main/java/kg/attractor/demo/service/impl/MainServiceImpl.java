@@ -10,7 +10,6 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class MainServiceImpl implements MainService {
-
     }
 
 
