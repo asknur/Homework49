@@ -6,8 +6,15 @@
                 <h2 class="fw-bold mb-4 text-center">Вход в аккаунт</h2>
                 <p class="text-muted text-center mb-4">Введите данные, чтобы продолжить</p>
 
+
                 <form id="login-form" action="/auth/login" method="post">
                     <!-- Email input -->
+                    <#if _csrf??>
+                        <input
+                            type="hidden"
+                            name="${(_csrf.parameterName)!'csrf-param-name'}"
+                            value="${(_csrf.token)!'csrf-token'}"/>
+                    </#if>
                     <div class="form-outline mb-4">
                         <label class="form-label fw-semibold" for="email">Email</label>
                         <input type="email" id="email" name="username" class="form-control form-control-lg"

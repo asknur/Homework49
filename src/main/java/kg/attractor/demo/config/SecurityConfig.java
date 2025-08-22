@@ -20,24 +20,6 @@ import javax.sql.DataSource;
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final DataSource dataSource;
-    private final PasswordEncoder passwordEncoder;
-
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        String userQuery = "select EMAIL, PASSWORD, ENABLED from USERS\n" +
-                "where EMAIL = ?;";
-
-        String roleQuery = "select EMAIL, ROLE_NAME from USERS u, ROLES r\n" +
-                "where u.EMAIL = ?\n" +
-                "and u. ROLE_ID = r.ID;";
-
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .usersByUsernameQuery(userQuery)
-                .authoritiesByUsernameQuery(roleQuery);
-    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -48,14 +30,14 @@ public class SecurityConfig {
                 .formLogin(login -> login
                         .loginPage("/auth/login")
                         .loginProcessingUrl("/auth/login")
+                        .failureForwardUrl("/auth/login?error=true")
                         .defaultSuccessUrl("/")
                         .permitAll())
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/")
                         .permitAll())
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorize -> authorize
+                 .authorizeHttpRequests(authorize -> authorize
                                 .requestMatchers(
                                         "/resume/**",
                                         "/vacancy/**",

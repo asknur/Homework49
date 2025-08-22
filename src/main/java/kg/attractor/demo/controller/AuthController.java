@@ -34,7 +34,7 @@ public class AuthController {
     @PostMapping("register")
     public String register(@Valid UserDto userDto, BindingResult bindingResult, Model model) {
         if (!bindingResult.hasErrors()) {
-            userService.createUser(userDto);
+            userService.register(userDto);
             return "redirect:/";
         }
         model.addAttribute("userDto", userDto);

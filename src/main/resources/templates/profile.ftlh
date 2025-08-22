@@ -63,6 +63,12 @@
                                 <p class="text-muted">Резюме пока нет.</p>
                             </#if>
                             <#if user.account_type == "applicant">
+                            <#if _csrf??>
+                                 <input
+                                    type="hidden"
+                                    name="${(_csrf.parameterName)!'csrf-param-name'}"
+                                    value="${(_csrf.token)!'csrf-token'}"/>
+                            </#if>
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h6 class="mb-0">Мои резюме</h6>
                                 <a href="/resume/create" class="btn btn-sm btn-success rounded-pill">+ Создать резюме</a>
@@ -100,6 +106,12 @@
                                 <p class="text-muted">Вакансий пока нет.</p>
                             </#if>
                             <div class="d-flex justify-content-between align-items-center mb-3">
+                            <#if _csrf??>
+                                <input
+                                type="hidden"
+                                name="${(_csrf.parameterName)!'csrf-param-name'}"
+                                value="${(_csrf.token)!'csrf-token'}"/>
+                            </#if>
                                 <h6 class="mb-0">Мои резюме</h6>
                                 <a href="/vacancy/create" class="btn btn-sm btn-success rounded-pill">+ Создать вакансию</a>
                                 </div>

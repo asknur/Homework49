@@ -8,6 +8,8 @@ import kg.attractor.demo.repository.UserRepository;
 import kg.attractor.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +20,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Slf4j
 public class UserServiceImpl implements UserService {
-
-    //    private final UserDao userDao;
     private final UserRepository userRepository;
     private final PasswordEncoder encoder;
 
@@ -27,11 +27,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void register(UserDto userDto) {
-        log.info("Registering user: {}", userDto);
         User user = User.builder()
                 .name(userDto.getName())
                 .email(userDto.getEmail())
                 .password(encoder.encode(userDto.getPassword()))
+                .account_type(userDto.getAccount_type())
+                .enabled(true) // по умолчанию активен
                 .build();
         userRepository.save(user);
     }
@@ -82,17 +83,37 @@ public class UserServiceImpl implements UserService {
         newUser.setName(user.getName());
         newUser.setEmail(user.getEmail());
         newUser.setPassword(encoder.encode(user.getPassword()));
+        newUser.setPhone_number(user.getPhone_number());
+        newUser.setAvatar(user.getAvatar());
+        newUser.setAccount_type(user.getAccount_type());
+        return userRepository.save(newUser);
+
+    }
+
+    @Override
+    public User save(UserDto user) {
+        log.info("Saving user: {}", user);
+        User newUser = new User();
+        newUser.setName(user.getName());
+        newUser.setEmail(user.getEmail());
+        newUser.setPassword(encoder.encode(user.getPassword()));
+        newUser.setPhone_number(user.getPhone_number());
+        newUser.setAvatar(user.getAvatar());
+        newUser.setAccount_type(user.getAccount_type());
         return userRepository.save(newUser);
     }
 
     @Override
-    public User save(UserDto userDto) {
-        log.info("Saving user: {}", userDto);
-        User user = new User();
-        user.setName(userDto.getName());
-        user.setEmail(userDto.getEmail());
-        user.setPassword(encoder.encode(userDto.getPassword()));
-        return userRepository.save(user);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        var user =  userRepository.findByEmail(username)
+                .orElseThrow(UserNotFoundException::new);
+        return new org.springframework.security.core.userdetails.User(
+                user.getEmail(),
+                user.getPassword(),
+                user.getAuthorities()
+        );
     }
+
+
 
 }
