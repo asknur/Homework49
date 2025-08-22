@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class UserDto {
+    private Integer id;
 
     @NotBlank(message = "Имя обязательно")
     @Size(min = 5, max = 20)
