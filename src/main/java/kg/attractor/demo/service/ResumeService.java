@@ -11,7 +11,7 @@ public interface ResumeService {
 
     Resume save(ResumeDto resume);
 
-    Resume getById(int id);
+    ResumeDto getById(long id);
 
     void deleteById(int id);
 

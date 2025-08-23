@@ -8,13 +8,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface VacancyService {
     Vacancy createVacancy(VacancyDto vacancyDto);
 
     Vacancy save(VacancyDto vacancyDto);
 
-    Vacancy getById(int id);
+    VacancyDto getById(long id);
 
     List<VacancyDto> getByUser(long id);
 
