@@ -3,6 +3,7 @@ package kg.attractor.demo.service.impl;
 
 import kg.attractor.demo.dto.ResumeDto;
 import kg.attractor.demo.dto.VacancyDto;
+import kg.attractor.demo.exceptions.ResumeNotFoundException;
 import kg.attractor.demo.interfaces.VacancyWithRespondedCount;
 import kg.attractor.demo.model.Resume;
 import kg.attractor.demo.model.Vacancy;
@@ -46,10 +47,17 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
-    public Resume getById(int id){
+    public ResumeDto getById(long id){
         log.info("Getting vacancy by id: {}", id);
-        return resumeRepository.findById((long)id)
-                .orElseThrow(() -> new RuntimeException("Resume not found"));
+        Resume resume = resumeRepository.findById(id)
+                .orElseThrow(ResumeNotFoundException::new);
+        return ResumeDto.builder()
+                .id(resume.getId())
+                .name(resume.getName())
+                .salary(resume.getSalary())
+                .is_active(resume.isActive())
+                .created_date(resume.getCreatedDate())
+                .build();
     }
 
     @Override

@@ -3,6 +3,7 @@ package kg.attractor.demo.service.impl;
 import jakarta.persistence.EntityNotFoundException;
 
 import kg.attractor.demo.dto.VacancyDto;
+import kg.attractor.demo.exceptions.VacancyNotFoundException;
 import kg.attractor.demo.interfaces.VacancyWithRespondedCount;
 import kg.attractor.demo.model.Vacancy;
 import kg.attractor.demo.repository.VacancyRepository;
@@ -46,10 +47,22 @@ public class VacancyServiceImpl implements VacancyService {
     }
 
     @Override
-    public Vacancy getById(int id) {
+    public VacancyDto getById(long id) {
         log.info("Getting vacancy by id: {}", id);
-        return vacancyRepository.findById((long) id)
-                .orElseThrow(() -> new EntityNotFoundException("Vacancy Not Found"));
+        Vacancy vacancy = vacancyRepository.findById(id)
+                .orElseThrow(VacancyNotFoundException::new);
+        return VacancyDto.builder()
+                .id(vacancy.getId())
+                .name(vacancy.getName())
+                .salary(vacancy.getSalary())
+                .created_date(vacancy.getCreatedDate())
+                .description(vacancy.getDescription())
+                .is_active(true)
+                .updated_time(vacancy.getUpdatedTime())
+                .exp_from(vacancy.getExp_from())
+                .exp_to(vacancy.getExp_to())
+                .build();
+
     }
 
     @Override
@@ -115,7 +128,7 @@ public class VacancyServiceImpl implements VacancyService {
     @Override
     public List<Vacancy> getVacanciesByAuthor(long vacancyId) {
         log.info("Getting applicants for vacancy id: {}", vacancyId);
-        return vacancyRepository.findVacanciesByAuthor_Id((long) vacancyId);
+        return vacancyRepository.findByAuthor_Id((long) vacancyId);
     }
 
     @Override

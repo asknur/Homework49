@@ -28,7 +28,14 @@
 
                         <div class="d-flex justify-content-center mt-3 gap-2">
                             <a href="/profile/edit" class="btn btn-outline-primary rounded-pill px-4">Редактировать</a>
-                            <a href="/logout" class="btn btn-outline-danger rounded-pill px-4">Выйти</a>
+                            <form action="/logout" method="post">
+                            <#if _csrf??>
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            </#if>
+                            <button type="submit" class="btn btn-outline-primary rounded-pill px-4" id="logout">
+                                Выйти
+                            </button>
+                        </form>
                         </div>
                     </div>
                 </div>

@@ -34,10 +34,10 @@ public class VacancyController {
         return "vacancy";
     }
 
-    @GetMapping("{vacancyId}")
+    @GetMapping("/{vacancyId}")
     public String getVacancy(@PathVariable int vacancyId, Model model) {
-        model.addAttribute("vacancies", vacancyService.getById(vacancyId));
-        return "vacancy";
+        model.addAttribute("vacancy", vacancyService.getById(vacancyId));
+        return "vacancy-info";
     }
 
     @GetMapping("/create")

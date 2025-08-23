@@ -15,7 +15,7 @@
         <li class="page-item"><a class="page-link" href="/resume/sorted?page=5&size=3">Next</a></li>
     </ul>
 
-    <h2 class="mb-4">Мои резюме</h2>
+    <h2 class="mb-4">Резюме</h2>
     <div class="row">
         <#list resumes as resume>
             <div class="col-md-4 mb-3">
@@ -31,7 +31,7 @@
                         </#if> <br>
                         Дата публикации: ${resume.createdDate}
                     </p>
-                    <a href="/resumes/${resume.id}" class="btn btn-primary">Подробнее</a>
+                    <a href="resume/${resume.id}" class="btn btn-primary">Подробнее</a>
                 </div>
             </div>
         </#list>
